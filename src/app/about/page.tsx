@@ -81,13 +81,15 @@ export default function AboutPage() {
         {/* Hero/Introduction Section */}
         <section id="introduction" className="space-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <div className="flex items-center justify-between">
-              <h1 className="text-5xl font-bold tracking-tight">Kalyan Chandana</h1>
-            </div>
+            <h1 className="text-5xl font-bold tracking-tight">Product Designer & AI-Native Builder</h1>
           </BlurFade>
 
           <BlurFade delay={BLUR_FADE_DELAY * 6}>
-            <p className="text-xl text-muted-foreground">Product Designer</p>
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+              I design products and build them—using AI-powered development tools
+              to ship functional prototypes and production systems without traditional
+              handoffs.
+            </p>
           </BlurFade>
 
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
@@ -139,12 +141,63 @@ export default function AboutPage() {
           </BlurFade>
 
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <p className="text-muted-foreground leading-relaxed max-w-2xl">
-              6+ years experience as a Product Designer, turning ambiguity into tangible, shipped solutions.
-              I architect product experiences, automate workflows, and own the results, thriving in the intersection
-              of strategy and execution. My expertise spans user research, scalable design systems, and data-driven design,
-              consistently delivering elegant, accessible, and impactful solutions from complex needs.
-            </p>
+            <div className="space-y-8 max-w-2xl">
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold">What makes me different</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Most designers stop at mockups. I architect solutions, build automation
+                  systems, and deploy full-stack applications. I&apos;ve designed enterprise UX
+                  for 73,000 Apple employees, built AI frameworks that orchestrate 7-agent
+                  development teams, and shipped automation systems that save 10+ hours
+                  weekly for real users.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  I work at the intersection of <span className="font-semibold text-foreground">design thinking</span>, <span className="font-semibold text-foreground">systems architecture</span>,
+                  and <span className="font-semibold text-foreground">AI-assisted development</span>—proving that the future of product work
+                  is building, not just designing.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold">Current focus</h2>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span>📊</span>
+                    <span>Building Second Saturday - a social network for meaningful connections</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span>🤖</span>
+                    <span>Expanding 60TDF - my AI agent development framework</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span>💼</span>
+                    <span>Open to product design + engineering hybrid roles at FAANG and AI-native companies</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="space-y-4">
+                <h2 className="text-2xl font-bold">Skills</h2>
+                <div className="space-y-3">
+                  <div>
+                    <span className="font-semibold text-foreground">Design:</span>{" "}
+                    <span className="text-muted-foreground">UX Research, Systems Design, Interaction Design, Accessibility</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-foreground">Engineering:</span>{" "}
+                    <span className="text-muted-foreground">N8N Automation, Claude Code, Full-Stack Dev, API Integration</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-foreground">AI:</span>{" "}
+                    <span className="text-muted-foreground">LLM Orchestration, Prompt Engineering, Agent Architecture, MCP Servers</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-foreground">Product:</span>{" "}
+                    <span className="text-muted-foreground">0→1 Building, Rapid Prototyping, Cross-Functional Collaboration</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </BlurFade>
         </section>
 

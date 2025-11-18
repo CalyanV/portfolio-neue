@@ -22,7 +22,7 @@
       --muted: 0 0% 96.1%;
       --muted-foreground: 0 0% 45.1%;
 
-      --accent: 0 0% 96.1%;
+      --accent: 183 55% 50%;
     --accent-foreground: 0 0% 9%;
 
       --destructive: 0 84.2% 60.2%;
@@ -54,7 +54,7 @@
       --muted: 0 0% 14.9%;
       --muted-foreground: 0 0% 63.9%;
 
-      --accent: 0 0% 14.9%;
+      --accent: 183 55% 50%;
       --accent-foreground: 0 0% 98%;
 
       --destructive: 0 62.8% 30.6%;
@@ -156,5 +156,27 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   60% {
     background-position: calc(100% + var(--shiny-width)) 0;
   }
+}
+
+/* Hide Spline watermark/logo */
+.spline-wrapper #logo,
+.spline-wrapper spline-viewer #logo,
+.spline-wrapper .spline-watermark,
+.spline-container > div > div:first-child:not(canvas),
+.spline-container canvas + div,
+.spline-container canvas ~ div {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* More specific targeting for Spline UI elements */
+spline-viewer {
+  position: relative !important;
+}
+
+spline-viewer > div:not(canvas) {
+  display: none !important;
 }
 

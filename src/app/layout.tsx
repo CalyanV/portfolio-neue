@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import { ParticlesBackground } from "@/components/particles-background";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -19,18 +20,24 @@ const acorn = localFont({
   variable: "--font-acorn",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
-  title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
-  },
+const siteConfig = {
+  name: DATA.name,
+  url: DATA.url,
   description: DATA.description,
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
-    url: DATA.url,
-    siteName: `${DATA.name}`,
+    title: `${siteConfig.name}`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: `${siteConfig.name}`,
     locale: "en_US",
     type: "website",
   },
@@ -46,7 +53,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.name}`,
+    title: `${siteConfig.name}`,
     card: "summary_large_image",
   },
   verification: {
@@ -69,11 +76,12 @@ export default function RootLayout({
           acorn.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          <ParticlesBackground />
+          <ScrollToTop />
           <TooltipProvider delayDuration={0}>
             <div className="relative">
-              <ParticlesBackground />
-              <div className="max-w-2xl mx-auto py-12 sm:py-24 px-6">
+              <div className="mx-auto py-12 sm:py-24 px-6">
                 {children}
                 <Navbar />
               </div>

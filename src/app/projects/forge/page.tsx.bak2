@@ -1,0 +1,641 @@
+import { DATA } from "@/data/resume";
+import BlurFade from "@/components/magicui/blur-fade";
+import { ProjectHero } from "@/components/project-hero";
+import { MetricsGrid } from "@/components/metrics-grid";
+import { WorkflowDiagram } from "@/components/workflow-diagram";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import {
+  Sparkles,
+  Rocket,
+  Target,
+  Users,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
+import Link from "next/link";
+import { AgentArchitectureDiagramSimple } from "@/components/forge/agent-architecture-diagram-simple";
+import { LimitationsGrid, DEFAULT_LIMITATIONS } from "@/components/forge/limitations-grid";
+
+const BLUR_FADE_DELAY = 0.04;
+
+// Find FORGE project data
+const project = DATA.projects.find((p) => p.href === "/projects/forge");
+
+export default function ForgePage() {
+  if (!project) {
+    return <div>Project not found</div>;
+  }
+
+  return (
+    <main className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <ProjectHero
+        title={project.title}
+        subtitle={project.subtitle || ""}
+        tags={project.technologies}
+        splineUrl={project.splineUrl}
+      />
+
+      <div className="max-w-7xl mx-auto w-full px-4 py-12 space-y-16 md:space-y-24">
+
+        {/* Quick Stats */}
+        <BlurFade delay={BLUR_FADE_DELAY * 2} inView>
+          <section className="space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold tracking-tight font-acorn">
+                Overview
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl">
+                {project.overview?.intro}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div>
+                <p className="text-sm text-muted-foreground">Timeline</p>
+                <p className="text-base font-medium">{project.overview?.timeline}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Platform</p>
+                <p className="text-base font-medium">{project.overview?.platform}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Role</p>
+                <p className="text-base font-medium">{project.overview?.role}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Team</p>
+                <p className="text-base font-medium">{project.overview?.team}</p>
+              </div>
+            </div>
+          </section>
+        </BlurFade>
+
+        {/* Impact Metrics */}
+        <BlurFade delay={BLUR_FADE_DELAY * 4} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              Impact
+            </h2>
+            {project.metrics?.impact && (
+              <MetricsGrid metrics={project.metrics.impact} columns={2} />
+            )}
+          </section>
+        </BlurFade>
+
+        {/* Overall Metrics */}
+        {project.metrics?.overall && (
+          <BlurFade delay={BLUR_FADE_DELAY * 5} inView>
+            <section className="space-y-8">
+              <h2 className="text-3xl font-bold tracking-tight font-acorn">
+                What I Built
+              </h2>
+              <MetricsGrid metrics={project.metrics.overall} columns={2} />
+            </section>
+          </BlurFade>
+        )}
+
+        {/* Problem Section */}
+        <BlurFade delay={BLUR_FADE_DELAY * 6} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              The Problem I Needed to Solve
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              {project.problem?.statement}
+            </p>
+
+            <div className="prose dark:prose-invert max-w-none">
+              <p className="text-base whitespace-pre-line">{project.problem?.story}</p>
+            </div>
+
+            {project.problem?.goals && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">Goals</h3>
+                <ul className="space-y-2">
+                  {project.problem.goals.map((goal, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <Target className="w-5 h-5 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
+                      <span>{goal}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </section>
+        </BlurFade>
+
+        {/* Before/After Comparison */}
+        {project.solution?.automation && (
+          <BlurFade delay={BLUR_FADE_DELAY * 7} inView>
+            <section className="space-y-8">
+              <h2 className="text-3xl font-bold tracking-tight font-acorn">
+                The Solution
+              </h2>
+
+              <WorkflowDiagram
+                before={{
+                  title: "❌ Traditional Sequential Development",
+                  steps: project.solution.automation.before,
+                }}
+                after={{
+                  title: "✅ What I Built Instead",
+                  steps: project.solution.automation.after,
+                }}
+              />
+
+              <p className="text-base text-muted-foreground mt-8">
+                {project.solution.automation.summary}
+              </p>
+            </section>
+          </BlurFade>
+        )}
+
+        {/* Architecture Overview */}
+        <BlurFade delay={BLUR_FADE_DELAY * 8} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              9 Specialized Agents, One Coordinated System
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              Each agent has specific expertise and context. They work in parallel, enforce quality gates, and ship production-ready code. Hover over any agent to learn more.
+            </p>
+
+            <AgentArchitectureDiagramSimple />
+          </section>
+        </BlurFade>
+
+        {/* 5-Phase Workflow */}
+        <BlurFade delay={BLUR_FADE_DELAY * 9} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              From Idea to Production in 5 Phases
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              FORGE orchestrates your entire development workflow, from planning to deployment, with quality enforced at every step.
+            </p>
+
+            <div className="grid gap-4">
+              {[
+                { icon: "📋", title: "Planning", duration: "~2h", desc: "Brainstorm, decompose into stories, define API contracts, create Linear issues" },
+                { icon: "⚡", title: "Parallel Execution", duration: "3-6h", desc: "Multiple agents work simultaneously with TDD enforced and API contracts aligned" },
+                { icon: "🔗", title: "Integration", duration: "30-60m", desc: "Code review, UX review, security scan, E2E tests, visual regression checks" },
+                { icon: "🚀", title: "Deployment", duration: "15-30m", desc: "Staging deployment → smoke tests → production with automated rollback" },
+                { icon: "🔄", title: "Iterate", duration: "Continuous", desc: "Ship 60%, collect feedback, refine based on real usage patterns" },
+              ].map((phase, i) => (
+                <Card key={i} className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl">{phase.icon}</div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-semibold text-lg">{phase.title}</h3>
+                        <Badge variant="secondary">{phase.duration}</Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{phase.desc}</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </section>
+        </BlurFade>
+
+        {/* Agent Deep Dives - TODO: Custom AgentCard components */}
+        <BlurFade delay={BLUR_FADE_DELAY * 10} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              Meet the 9 Specialized Agents
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              Each agent has specific expertise, tools, and context. Click any agent to see exactly how it works, what rules it follows, and what it produces.
+            </p>
+
+            {/* Bento Grid Layout - Custom vertical flow */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[160px]">
+              {/* Row 1 & 2 - Left side */}
+              {/* Main Session - Hero (2 cols × 2 rows) */}
+              <Card className="col-span-1 md:col-span-2 row-span-2 p-6 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+                <div className="flex flex-col gap-3 h-full">
+                  <div className="text-5xl">🧭</div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold mb-2">Main Session</h3>
+                    <p className="text-base text-muted-foreground mb-2">Coordinator/Planner</p>
+                    <p className="text-sm text-muted-foreground">Orchestrates all specialized agents, maintains context, ensures alignment.</p>
+                    <p className="text-xs text-muted-foreground/60 mt-2">Linear MCP, GitHub MCP</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Row 1 - Right side */}
+              {/* Strategic Planner */}
+              <Card className="col-span-1 p-5 bg-gradient-to-br from-orange-500/5 to-orange-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">📋</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">Strategic Planner</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Feature Planning & Design</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Row 2 - Right side */}
+              {/* Frontend Agent */}
+              <Card className="col-span-1 p-5 bg-gradient-to-br from-green-500/5 to-green-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">🎨</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">Frontend Agent</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Pixel-Perfect UI Development</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Row 3 */}
+              {/* Orchestrator (2 cols) */}
+              <Card className="col-span-1 md:col-span-2 p-5 bg-gradient-to-br from-purple-500/5 to-purple-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">🎯</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">Orchestrator</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Multi-Agent Coordination</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Backend Agent */}
+              <Card className="col-span-1 p-5 bg-gradient-to-br from-blue-500/5 to-blue-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">⚙️</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">Backend Agent</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Type-Safe Server Logic</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Row 4 - Three equal review agents */}
+              {/* UX Reviewer */}
+              <Card className="col-span-1 p-5 bg-gradient-to-br from-cyan-500/5 to-cyan-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">♿</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">UX Reviewer</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Accessibility & Design</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Security Specialist */}
+              <Card className="col-span-1 p-5 bg-gradient-to-br from-amber-500/5 to-amber-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">🔒</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">Security Specialist</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Vulnerability Detection</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Code Reviewer */}
+              <Card className="col-span-1 p-5 bg-gradient-to-br from-emerald-500/5 to-emerald-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">🔍</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">Code Reviewer</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Quality & Standards</p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Row 5 */}
+              {/* Deployment Agent (full width) */}
+              <Card className="col-span-1 md:col-span-3 p-5 bg-gradient-to-br from-indigo-500/5 to-indigo-500/10">
+                <div className="flex flex-col gap-2 h-full">
+                  <div className="text-4xl">🚀</div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold">Deployment Agent</h3>
+                    <p className="text-xs text-muted-foreground mt-1">Automated CI/CD Pipeline</p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </section>
+        </BlurFade>
+
+        {/* Use Cases */}
+        <BlurFade delay={BLUR_FADE_DELAY * 11} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              FORGE in Action: Real Features from Second Saturday
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              These aren't hypothetical examples. These are actual features I built using FORGE, showing exactly how the framework handles real product development.
+            </p>
+
+            <div className="grid gap-6">
+              {[
+                {
+                  icon: "📧",
+                  title: "Monthly Newsletter Generation",
+                  time: "5h vs 21h traditional (76% faster)",
+                  complexity: "High",
+                  agents: 6,
+                  desc: "Built automated newsletter system with cron, Resend API, email templates, and archive view.",
+                },
+                {
+                  icon: "👥",
+                  title: "Group Invitation System",
+                  time: "3.5h",
+                  complexity: "Medium",
+                  agents: 5,
+                  desc: "Secure token generation, magic links, email delivery, and invitation state management.",
+                },
+                {
+                  icon: "📸",
+                  title: "Photo Upload with Cloudinary",
+                  time: "2h",
+                  complexity: "Low",
+                  agents: 3,
+                  desc: "Cloudinary integration with drag-and-drop upload, image optimization, and full testing.",
+                },
+              ].map((use, i) => (
+                <Card key={i} className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl">{use.icon}</div>
+                    <div className="flex-1 space-y-2">
+                      <h3 className="text-xl font-semibold">{use.title}</h3>
+                      <p className="text-sm text-teal-600 dark:text-teal-400 font-medium">{use.time}</p>
+                      <div className="flex gap-2 flex-wrap">
+                        <Badge variant="secondary">Complexity: {use.complexity}</Badge>
+                        <Badge variant="secondary">Agents: {use.agents}</Badge>
+                      </div>
+                      <p className="text-muted-foreground text-sm">{use.desc}</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </section>
+        </BlurFade>
+
+        {/* Impact & Metrics Section */}
+        <BlurFade delay={BLUR_FADE_DELAY * 12} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              The Results: Building Second Saturday
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              Numbers don't lie. Here's the actual impact of building with FORGE compared to traditional development approaches.
+            </p>
+
+            {/* Before/After Grid */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="p-6 space-y-4">
+                <h3 className="text-xl font-semibold flex items-center gap-2">
+                  <XCircle className="w-5 h-5 text-red-500" />
+                  Before FORGE
+                </h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Features/Month</span>
+                    <span className="font-medium">2</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Test Coverage</span>
+                    <span className="font-medium">~40%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Deployment Time</span>
+                    <span className="font-medium">2-3 days</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Bugs in Production</span>
+                    <span className="font-medium">Weekly</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Role</span>
+                    <span className="font-medium">Designer Only</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Feedback Loop</span>
+                    <span className="font-medium">Weeks</span>
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="p-6 space-y-4 border-teal-600/50">
+                <h3 className="text-xl font-semibold flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                  After FORGE
+                </h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Features/Month</span>
+                    <span className="font-medium text-teal-600 dark:text-teal-400">8-10</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Test Coverage</span>
+                    <span className="font-medium text-teal-600 dark:text-teal-400">100%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Deployment Time</span>
+                    <span className="font-medium text-teal-600 dark:text-teal-400">30 minutes</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Bugs in Production</span>
+                    <span className="font-medium text-teal-600 dark:text-teal-400">Rare</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Role</span>
+                    <span className="font-medium text-teal-600 dark:text-teal-400">Product Engineer</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Feedback Loop</span>
+                    <span className="font-medium text-teal-600 dark:text-teal-400">Days</span>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Second Saturday Stats */}
+            <div className="mt-8">
+              <h3 className="text-2xl font-semibold mb-6">Second Saturday by the Numbers</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { value: "75 hours", label: "Built over 45 days" },
+                  { value: "24,400", label: "Lines of code" },
+                  { value: "350", label: "Lines per hour" },
+                  { value: "460/460", label: "Tests passing" },
+                  { value: "100%", label: "Test coverage" },
+                  { value: "WCAG 2.1 AA", label: "Compliant" },
+                  { value: "Zero", label: "Vulnerabilities" },
+                  { value: "6x faster", label: "Than traditional" },
+                ].map((stat, index) => (
+                  <Card key={index} className="p-4 text-center">
+                    <div className="text-xl md:text-2xl font-bold text-teal-600 dark:text-teal-400">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs md:text-sm text-muted-foreground mt-1">
+                      {stat.label}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        </BlurFade>
+
+        {/* Adoption */}
+        {project.solution?.adoption && (
+          <BlurFade delay={BLUR_FADE_DELAY * 13} inView>
+            <section className="space-y-8">
+              <h2 className="text-3xl font-bold tracking-tight font-acorn">
+                Building FORGE
+              </h2>
+
+              <p className="text-base whitespace-pre-line">{project.solution.adoption.description}</p>
+
+              {project.solution.adoption.metrics && (
+                <div className="grid md:grid-cols-2 gap-6 mt-6">
+                  {project.solution.adoption.metrics.map((metric, index) => (
+                    <Card key={index} className="p-6 text-center">
+                      <div className="text-3xl font-bold text-teal-600 dark:text-teal-400">
+                        {metric.value}
+                      </div>
+                      <div className="text-sm text-muted-foreground mt-2">
+                        {metric.label}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </section>
+          </BlurFade>
+        )}
+
+        {/* Limitations & Future */}
+        <BlurFade delay={BLUR_FADE_DELAY * 14} inView>
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn">
+              Being Honest: What FORGE Does Well (and What It Doesn't)
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl">
+              No tool is perfect. Here's where FORGE excels, where it struggles, and what's coming next.
+            </p>
+
+            <LimitationsGrid {...DEFAULT_LIMITATIONS} />
+          </section>
+        </BlurFade>
+
+        {/* Learnings */}
+        {project.learnings && (
+          <BlurFade delay={BLUR_FADE_DELAY * 15} inView>
+            <section className="space-y-8">
+              <h2 className="text-3xl font-bold tracking-tight font-acorn">
+                Key Learnings
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {project.learnings.map((learning, index) => (
+                  <Card key={index} className="p-6 space-y-2">
+                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                      {learning.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {learning.description}
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          </BlurFade>
+        )}
+
+        {/* CTA Section */}
+        <BlurFade delay={BLUR_FADE_DELAY * 16} inView>
+          <section className="space-y-8 pb-12">
+            <h2 className="text-3xl font-bold tracking-tight font-acorn text-center">
+              Want to See More?
+            </h2>
+
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center">
+              Explore Second Saturday live, check out the code, or get in touch to discuss how FORGE could work for your product ideas.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {project.links && project.links.map((link, index) => (
+                <Link
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <link.icon className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+                      <div>
+                        <h3 className="font-semibold">
+                          {link.type === "Website" ? "View Second Saturday Live" : "Explore on GitHub"}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {link.type === "Website"
+                            ? "See what FORGE built in action"
+                            : "Dive into the code and documentation"}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+
+              <Link href="/">
+                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
+                  <div className="flex items-center gap-4">
+                    <Users className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+                    <div>
+                      <h3 className="font-semibold">Back to Portfolio</h3>
+                      <p className="text-sm text-muted-foreground">
+                        See more case studies and projects
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+
+              <Link href="mailto:kalyanvenkatesh.cha@gmail.com">
+                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
+                  <div className="flex items-center gap-4">
+                    <Sparkles className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+                    <div>
+                      <h3 className="font-semibold">Let's Talk</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Discuss FORGE or AI-native product development
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            </div>
+          </section>
+        </BlurFade>
+
+        {/* Footer Note */}
+        <BlurFade delay={BLUR_FADE_DELAY * 17} inView>
+          <div className="text-center text-sm text-muted-foreground pb-8">
+            <p>Built with FORGE. Designed and developed by Kalyan Chandana.</p>
+            <p className="mt-2">This page itself was built using the same framework it documents. Meta? Yes. Functional? Absolutely.</p>
+          </div>
+        </BlurFade>
+      </div>
+    </main>
+  );
+}
