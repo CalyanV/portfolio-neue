@@ -3,9 +3,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  return DATA.projects.map((project) => ({
-    slug: project.href?.replace("/projects/", "") || "",
-  }));
+  // Exclude projects that have dedicated pages
+  const excludedSlugs = ['apple', 'forge'];
+
+  return DATA.projects
+    .filter((project) => {
+      const slug = project.href?.replace("/projects/", "") || "";
+      return !excludedSlugs.includes(slug);
+    })
+    .map((project) => ({
+      slug: project.href?.replace("/projects/", "") || "",
+    }));
 }
 
 export async function generateMetadata({
