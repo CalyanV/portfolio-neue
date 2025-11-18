@@ -70,6 +70,7 @@ export function ProjectHeroEnhanced({
     // Return the formatted value with suffix
     if (value.includes('x')) return `${tickerValue}x`;
     if (value.includes('%')) return `${tickerValue}%`;
+    if (value.toLowerCase().includes('h')) return `~${tickerValue}h`;
     if (value.toLowerCase().includes('k')) return `~${tickerValue}k`;
     if (value.includes('$')) return `$${tickerValue}k`;
     return tickerValue.toString();
@@ -161,12 +162,14 @@ export function ProjectHeroEnhanced({
                               {metric.value.includes('$') && '$'}
                               <NumberTicker value={numericValue} delay={0.3 + index * 0.1} />
                               {metric.value.toLowerCase().includes('k') && 'k'}
+                              {metric.value.toLowerCase().includes('h') && 'h'}
                             </>
                           ) : (
                             <>
                               <NumberTicker value={numericValue} delay={0.3 + index * 0.1} />
                               {metric.value.includes('x') && 'x'}
                               {metric.value.includes('%') && '%'}
+                              {metric.value.toLowerCase().includes('h') && 'h'}
                             </>
                           )}
                         </span>
@@ -280,12 +283,14 @@ export function ProjectHeroEnhanced({
                                 {metric.value.includes('$') && '$'}
                                 <NumberTicker value={numericValue} delay={0.5 + index * 0.1} />
                                 {metric.value.toLowerCase().includes('k') && 'k'}
+                                {metric.value.toLowerCase().includes('h') && 'h'}
                               </span>
                             ) : (
                               <span>
                                 <NumberTicker value={numericValue} delay={0.5 + index * 0.1} />
                                 {metric.value.includes('x') && 'x'}
                                 {metric.value.includes('%') && '%'}
+                                {metric.value.toLowerCase().includes('h') && 'h'}
                               </span>
                             )}
                           </div>

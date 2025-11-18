@@ -1,6 +1,14 @@
-import { Fragment } from "react";
+"use client";
+
+import { Fragment, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import {
   Brain,
@@ -12,6 +20,8 @@ import {
   Palette,
   Rocket,
   Network,
+  ChevronDown,
+  CheckCircle2,
 } from "lucide-react";
 
 interface Agent {
@@ -161,30 +171,90 @@ function AgentCard({ agent }: {
   agent: Agent;
 }) {
   const Icon = agent.icon;
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card
-      className={cn(
-        agent.borderColor
-      )}
-    >
-      <CardContent className="p-4">
-        <div className="flex items-start gap-3">
-          <div className={cn("p-2 rounded-lg", agent.bgColor)} style={{ color: agent.color }}>
-            <Icon className="w-5 h-5" />
+    <TooltipProvider>
+      <Tooltip delayDuration={300}>
+        <TooltipTrigger asChild>
+          <Card
+            className={cn(
+              agent.borderColor,
+              "cursor-pointer transition-all duration-200 hover:shadow-md",
+              isExpanded && "shadow-lg"
+            )}
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <div className={cn("p-2 rounded-lg", agent.bgColor)} style={{ color: agent.color }}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <h3 className="font-semibold text-sm">{agent.name}</h3>
+                    <ChevronDown
+                      className={cn(
+                        "w-4 h-4 text-muted-foreground transition-transform duration-200 flex-shrink-0",
+                        isExpanded && "rotate-180"
+                      )}
+                    />
+                  </div>
+                  <Badge variant="secondary" className="text-xs mb-2">
+                    {agent.type}
+                  </Badge>
+                  <p className={cn(
+                    "text-xs text-muted-foreground",
+                    !isExpanded && "line-clamp-2"
+                  )}>
+                    {agent.description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Expanded Details */}
+              <div
+                className={cn(
+                  "overflow-hidden transition-all duration-300 ease-in-out",
+                  isExpanded ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0"
+                )}
+              >
+                <div className="pt-4 border-t border-border">
+                  <h4 className="text-xs font-semibold mb-3 uppercase tracking-wide text-muted-foreground">
+                    Key Responsibilities
+                  </h4>
+                  <ul className="space-y-2">
+                    {agent.responsibilities.map((responsibility, index) => (
+                      <li key={index} className="flex items-start gap-2 text-xs">
+                        <CheckCircle2
+                          className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
+                          style={{ color: agent.color }}
+                        />
+                        <span className="text-muted-foreground">{responsibility}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TooltipTrigger>
+
+        <TooltipContent side="top" className="max-w-xs">
+          <div className="space-y-2">
+            <p className="font-semibold text-sm">{agent.name}</p>
+            <ul className="space-y-1">
+              {agent.responsibilities.map((responsibility, index) => (
+                <li key={index} className="text-xs flex items-start gap-1.5">
+                  <span className="text-primary mt-0.5">•</span>
+                  <span>{responsibility}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-sm mb-1">{agent.name}</h3>
-            <Badge variant="secondary" className="text-xs mb-2">
-              {agent.type}
-            </Badge>
-            <p className="text-xs text-muted-foreground line-clamp-2">
-              {agent.description}
-            </p>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
 

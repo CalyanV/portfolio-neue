@@ -1,23 +1,22 @@
 import { DATA } from "@/data/resume";
-import { ProjectHero } from "@/components/project-hero";
-import { ProjectTabs } from "@/components/project-tabs";
-import { MetricsGrid } from "@/components/metrics-grid";
-import { WorkflowDiagram } from "@/components/workflow-diagram";
-import { AccordionSection } from "@/components/accordion-section";
+import { ProjectHeroEnhanced } from "@/components/project-hero-enhanced";
+import { PersonaGrid } from "@/components/persona-card";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import BlurFade from "@/components/magicui/blur-fade";
 import {
   Sparkles,
-  Rocket,
   Target,
-  Users,
   CheckCircle2,
   XCircle,
+  TrendingUp,
+  Award,
 } from "lucide-react";
 import Link from "next/link";
 import { lazy, Suspense } from "react";
 import { DotPattern } from "@/components/ui/dot-pattern";
+import { MetricsGrid } from "@/components/metrics-grid";
 
 // Lazy load heavy components
 const AgentArchitectureDiagramSimple = lazy(() =>
@@ -26,146 +25,8 @@ const AgentArchitectureDiagramSimple = lazy(() =>
   }))
 );
 
-const LimitationsGrid = lazy(() =>
-  import("@/components/forge/limitations-grid").then((mod) => ({
-    default: mod.LimitationsGrid,
-  }))
-);
-
-import { DEFAULT_LIMITATIONS } from "@/components/forge/limitations-grid";
-
-
 // Find FORGE project data
 const project = DATA.projects.find((p) => p.href === "/projects/forge");
-
-// Extract inline data arrays to constants
-const WORKFLOW_PHASES = [
-  { icon: "📋", title: "Planning", duration: "~2h", desc: "Brainstorm, decompose into stories, define API contracts, create Linear issues" },
-  { icon: "⚡", title: "Parallel Execution", duration: "3-6h", desc: "Multiple agents work simultaneously with TDD enforced and API contracts aligned" },
-  { icon: "🔗", title: "Integration", duration: "30-60m", desc: "Code review, UX review, security scan, E2E tests, visual regression checks" },
-  { icon: "🚀", title: "Deployment", duration: "15-30m", desc: "Staging deployment → smoke tests → production with automated rollback" },
-  { icon: "🔄", title: "Iterate", duration: "Continuous", desc: "Ship 60%, collect feedback, refine based on real usage patterns" },
-];
-
-const USE_CASES = [
-  {
-    icon: "📧",
-    title: "Monthly Newsletter Generation",
-    time: "5h vs 21h traditional (76% faster)",
-    complexity: "High",
-    agents: 6,
-    desc: "Built automated newsletter system with cron, Resend API, email templates, and archive view.",
-  },
-  {
-    icon: "👥",
-    title: "Group Invitation System",
-    time: "3.5h",
-    complexity: "Medium",
-    agents: 5,
-    desc: "Secure token generation, magic links, email delivery, and invitation state management.",
-  },
-  {
-    icon: "📸",
-    title: "Photo Upload with Cloudinary",
-    time: "2h",
-    complexity: "Low",
-    agents: 3,
-    desc: "Cloudinary integration with drag-and-drop upload, image optimization, and full testing.",
-  },
-];
-
-const SECOND_SATURDAY_STATS = [
-  { value: "75 hours", label: "Built over 45 days" },
-  { value: "24,400", label: "Lines of code" },
-  { value: "350", label: "Lines per hour" },
-  { value: "460/460", label: "Tests passing" },
-  { value: "100%", label: "Test coverage" },
-  { value: "WCAG 2.1 AA", label: "Compliant" },
-  { value: "Zero", label: "Vulnerabilities" },
-  { value: "6x faster", label: "Than traditional" },
-];
-
-const AGENT_CARDS = [
-  {
-    icon: "🧭",
-    title: "Main Session",
-    subtitle: "Coordinator/Planner",
-    description: "Orchestrates all specialized agents, maintains context, ensures alignment.",
-    tools: "Linear MCP, GitHub MCP",
-    colSpan: "col-span-1 md:col-span-2",
-    rowSpan: "row-span-2",
-    gradient: "from-primary/5 to-primary/10 border-primary/20",
-  },
-  {
-    icon: "📋",
-    title: "Strategic Planner",
-    subtitle: "Feature Planning & Design",
-    gradient: "from-orange-500/5 to-orange-500/10",
-  },
-  {
-    icon: "🎨",
-    title: "Frontend Agent",
-    subtitle: "Pixel-Perfect UI Development",
-    gradient: "from-green-500/5 to-green-500/10",
-  },
-  {
-    icon: "🎯",
-    title: "Orchestrator",
-    subtitle: "Multi-Agent Coordination",
-    colSpan: "col-span-1 md:col-span-2",
-    gradient: "from-purple-500/5 to-purple-500/10",
-  },
-  {
-    icon: "⚙️",
-    title: "Backend Agent",
-    subtitle: "Type-Safe Server Logic",
-    gradient: "from-blue-500/5 to-blue-500/10",
-  },
-  {
-    icon: "♿",
-    title: "UX Reviewer",
-    subtitle: "Accessibility & Design",
-    gradient: "from-cyan-500/5 to-cyan-500/10",
-  },
-  {
-    icon: "🔒",
-    title: "Security Specialist",
-    subtitle: "Vulnerability Detection",
-    gradient: "from-amber-500/5 to-amber-500/10",
-  },
-  {
-    icon: "🔍",
-    title: "Code Reviewer",
-    subtitle: "Quality & Standards",
-    gradient: "from-emerald-500/5 to-emerald-500/10",
-  },
-  {
-    icon: "🚀",
-    title: "Deployment Agent",
-    subtitle: "Automated CI/CD Pipeline",
-    colSpan: "col-span-1 md:col-span-3",
-    gradient: "from-indigo-500/5 to-indigo-500/10",
-  },
-];
-
-const BEFORE_AFTER_COMPARISON = {
-  before: [
-    { label: "Features/Month", value: "2" },
-    { label: "Test Coverage", value: "~40%" },
-    { label: "Deployment Time", value: "2-3 days" },
-    { label: "Bugs in Production", value: "Weekly" },
-    { label: "Role", value: "Designer Only" },
-    { label: "Feedback Loop", value: "Weeks" },
-  ],
-  after: [
-    { label: "Features/Month", value: "8-10" },
-    { label: "Test Coverage", value: "100%" },
-    { label: "Deployment Time", value: "30 minutes" },
-    { label: "Bugs in Production", value: "Rare" },
-    { label: "Role", value: "Product Engineer" },
-    { label: "Feedback Loop", value: "Days" },
-  ],
-};
 
 export default function ForgePage() {
   if (!project) {
@@ -185,496 +46,724 @@ export default function ForgePage() {
       />
 
       <div className="relative mx-auto px-6 md:px-12 lg:px-16 py-12 max-w-7xl">
-        {/* Hero Section */}
-        <ProjectHero
-        title={project.title}
-        subtitle={project.subtitle || ""}
-        tags={[...project.technologies]}
-        splineUrl={project.splineUrl}
-      />
-
-      {/* Project Tabs */}
-      <div className="mb-16">
-        <ProjectTabs
-          tabs={[
-            {
-              id: "overview",
-              label: "Overview",
-              content: (
-                <div className="space-y-8">
-
-                  {/* Quick Stats */}
-                  <BlurFade delay={0.1} inView>
-                    <div className="space-y-4">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        Overview
-                      </h2>
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        {project.overview?.intro}
-                      </p>
-                    </div>
-                  </BlurFade>
-
-                  <BlurFade delay={0.2} inView>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground">Timeline</p>
-                        <p className="text-base font-medium">{project.overview?.timeline}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">Platform</p>
-                        <p className="text-base font-medium">{project.overview?.platform}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">Role</p>
-                        <p className="text-base font-medium">{project.overview?.role}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">Team</p>
-                        <p className="text-base font-medium">{project.overview?.team}</p>
-                      </div>
-                    </div>
-                  </BlurFade>
-
-                  {/* Impact Metrics */}
-                  <BlurFade delay={0.3} inView>
-                    <div className="space-y-4">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        Impact
-                      </h2>
-                      {project.metrics?.impact && (
-                        <MetricsGrid metrics={[...project.metrics.impact]} columns={2} />
-                      )}
-                    </div>
-                  </BlurFade>
-
-                  {/* Overall Metrics */}
-                  {project.metrics?.overall && (
-                    <BlurFade delay={0.4} inView>
-                      <div className="space-y-4">
-                        <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                          What I Built
-                        </h2>
-                        <MetricsGrid metrics={[...project.metrics.overall]} columns={2} />
-                      </div>
-                    </BlurFade>
-                  )}
-
-                  {/* Problem Section */}
-                  <BlurFade delay={0.5} inView>
-                    <div className="space-y-6">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        The Problem I Needed to Solve
-                      </h2>
-
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        {project.problem?.statement}
-                      </p>
-
-                      <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-base whitespace-pre-line">{project.problem?.story}</p>
-                      </div>
-
-                      {project.problem?.goals && (
-                        <div className="space-y-4">
-                          <h3 className="text-xl font-semibold">Goals</h3>
-                          <ul className="space-y-2">
-                            {project.problem.goals.map((goal, index) => (
-                              <li key={index} className="flex items-start gap-2">
-                                <Target className="w-5 h-5 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
-                                <span>{goal}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </BlurFade>
-
-                  {/* Solution Workflow */}
-                  {project.solution?.automation && (
-                    <BlurFade delay={0.6} inView>
-                      <div className="space-y-6">
-                        <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                          The Solution
-                        </h2>
-
-                        <WorkflowDiagram
-                          before={{
-                            title: "❌ Traditional Sequential Development",
-                            steps: [...project.solution.automation.before],
-                          }}
-                          after={{
-                            title: "✅ What I Built Instead",
-                            steps: [...project.solution.automation.after],
-                          }}
-                        />
-
-                        <p className="text-base text-muted-foreground mt-8">
-                          {project.solution.automation.summary}
-                        </p>
-                      </div>
-                    </BlurFade>
-                  )}
-
-                </div>
-              ),
-            },
-            {
-              id: "architecture",
-              label: "Architecture",
-              content: (
-                <div className="space-y-8">
-                  {/* Architecture Overview */}
-                  <BlurFade delay={0.1} inView>
-                    <div className="space-y-4">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        9 Specialized Agents, One Coordinated System
-                      </h2>
-
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        Each agent has specific expertise and context. They work in parallel, enforce quality gates, and ship production-ready code. Hover over any agent to learn more.
-                      </p>
-                    </div>
-                  </BlurFade>
-
-                  <BlurFade delay={0.2} inView>
-                    <Suspense
-                      fallback={
-                        <div className="flex items-center justify-center py-12">
-                          <div className="text-muted-foreground">Loading architecture diagram...</div>
-                        </div>
-                      }
-                    >
-                      <AgentArchitectureDiagramSimple />
-                    </Suspense>
-                  </BlurFade>
-
-                  {/* 5-Phase Workflow */}
-                  <BlurFade delay={0.3} inView>
-                    <div className="space-y-6">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        From Idea to Production in 5 Phases
-                      </h2>
-
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        FORGE orchestrates your entire development workflow, from planning to deployment, with quality enforced at every step.
-                      </p>
-
-                      <div className="grid gap-4">
-                        {WORKFLOW_PHASES.map((phase, i) => (
-                          <Card key={i} className="p-6">
-                            <div className="flex items-start gap-4">
-                              <div className="text-3xl">{phase.icon}</div>
-                              <div className="flex-1">
-                                <div className="flex items-center justify-between mb-2">
-                                  <h3 className="font-semibold text-lg">{phase.title}</h3>
-                                  <Badge variant="secondary">{phase.duration}</Badge>
-                                </div>
-                                <p className="text-sm text-muted-foreground">{phase.desc}</p>
-                              </div>
-                            </div>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
-                  </BlurFade>
-
-                  {/* Agent Deep Dives - Accordion */}
-                  <BlurFade delay={0.4} inView>
-                    <div className="space-y-4">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        Meet the 9 Specialized Agents
-                      </h2>
-
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        Each agent has specific expertise, tools, and context. Expand to see exactly how each agent works.
-                      </p>
-
-                      <AccordionSection
-                        items={[
-                          {
-                            title: "View All 9 Specialized Agents",
-                            content: (
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[160px] mt-4">
-                                {AGENT_CARDS.map((agent, index) => (
-                                  <Card
-                                    key={index}
-                                    className={`${agent.colSpan || "col-span-1"} ${
-                                      agent.rowSpan || "row-span-1"
-                                    } p-6 bg-gradient-to-br ${agent.gradient}`}
-                                  >
-                                    <div className="flex flex-col gap-3 h-full">
-                                      <div className={agent.rowSpan ? "text-5xl" : "text-4xl"}>
-                                        {agent.icon}
-                                      </div>
-                                      <div className="flex-1">
-                                        <h3
-                                          className={
-                                            agent.rowSpan ? "text-xl font-bold mb-2" : "text-base font-semibold"
-                                          }
-                                        >
-                                          {agent.title}
-                                        </h3>
-                                        <p
-                                          className={
-                                            agent.rowSpan
-                                              ? "text-base text-muted-foreground mb-2"
-                                              : "text-xs text-muted-foreground mt-1"
-                                          }
-                                        >
-                                          {agent.subtitle}
-                                        </p>
-                                        {agent.description && (
-                                          <p className="text-sm text-muted-foreground">{agent.description}</p>
-                                        )}
-                                        {agent.tools && (
-                                          <p className="text-xs text-muted-foreground/60 mt-2">{agent.tools}</p>
-                                        )}
-                                      </div>
-                                    </div>
-                                  </Card>
-                                ))}
-                              </div>
-                            ),
-                          },
-                        ]}
-                      />
-                    </div>
-                  </BlurFade>
-
-                  {/* Use Cases */}
-                  <BlurFade delay={0.5} inView>
-                    <div className="space-y-6">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        FORGE in Action: Real Features from Second Saturday
-                      </h2>
-
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        These aren't hypothetical examples. These are actual features I built using FORGE, showing exactly how the framework handles real product development.
-                      </p>
-
-                      <div className="grid gap-6">
-                        {USE_CASES.map((use, i) => (
-                          <Card key={i} className="p-6">
-                            <div className="flex items-start gap-4">
-                              <div className="text-4xl">{use.icon}</div>
-                              <div className="flex-1 space-y-2">
-                                <h3 className="text-xl font-semibold">{use.title}</h3>
-                                <p className="text-sm text-teal-600 dark:text-teal-400 font-medium">{use.time}</p>
-                                <div className="flex gap-2 flex-wrap">
-                                  <Badge variant="secondary">Complexity: {use.complexity}</Badge>
-                                  <Badge variant="secondary">Agents: {use.agents}</Badge>
-                                </div>
-                                <p className="text-muted-foreground text-sm">{use.desc}</p>
-                              </div>
-                            </div>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
-                  </BlurFade>
-                </div>
-              ),
-            },
-            {
-              id: "results",
-              label: "Results & Impact",
-              content: (
-                <div className="space-y-8">
-
-                  {/* Impact & Metrics Section */}
-                  <BlurFade delay={0.1} inView>
-                    <div className="space-y-4">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        The Results: Building Second Saturday
-                      </h2>
-
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        Numbers don't lie. Here's the actual impact of building with FORGE compared to traditional development approaches.
-                      </p>
-                    </div>
-                  </BlurFade>
-
-                  {/* Before/After Grid */}
-                  <BlurFade delay={0.2} inView>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <Card className="p-6 space-y-4">
-                        <h3 className="text-xl font-semibold flex items-center gap-2">
-                          <XCircle className="w-5 h-5 text-red-500" />
-                          Before FORGE
-                        </h3>
-                        <div className="space-y-3 text-sm">
-                          {BEFORE_AFTER_COMPARISON.before.map((item, index) => (
-                            <div key={index} className="flex justify-between">
-                              <span className="text-muted-foreground">{item.label}</span>
-                              <span className="font-medium">{item.value}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </Card>
-
-                      <Card className="p-6 space-y-4 border-teal-600/50">
-                        <h3 className="text-xl font-semibold flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                          After FORGE
-                        </h3>
-                        <div className="space-y-3 text-sm">
-                          {BEFORE_AFTER_COMPARISON.after.map((item, index) => (
-                            <div key={index} className="flex justify-between">
-                              <span className="text-muted-foreground">{item.label}</span>
-                              <span className="font-medium text-teal-600 dark:text-teal-400">{item.value}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </Card>
-                    </div>
-                  </BlurFade>
-
-                  {/* Second Saturday Stats */}
-                  <BlurFade delay={0.3} inView>
-                    <div className="space-y-6">
-                      <h3 className="text-2xl font-semibold">Second Saturday by the Numbers</h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {SECOND_SATURDAY_STATS.map((stat, index) => (
-                          <Card key={index} className="p-4 text-center">
-                            <div className="text-xl md:text-2xl font-bold text-teal-600 dark:text-teal-400">
-                              {stat.value}
-                            </div>
-                            <div className="text-xs md:text-sm text-muted-foreground mt-1">
-                              {stat.label}
-                            </div>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
-                  </BlurFade>
-
-                  {/* Building FORGE */}
-                  {project.solution?.adoption && (
-                    <BlurFade delay={0.4} inView>
-                      <div className="space-y-6">
-                        <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                          Building FORGE
-                        </h2>
-
-                        <p className="text-base whitespace-pre-line">{project.solution.adoption.description}</p>
-
-                        {project.solution.adoption.metrics && (
-                          <div className="grid md:grid-cols-2 gap-6">
-                            {project.solution.adoption.metrics.map((metric, index) => (
-                              <Card key={index} className="p-6 text-center">
-                                <div className="text-3xl font-bold text-teal-600 dark:text-teal-400">
-                                  {metric.value}
-                                </div>
-                                <div className="text-sm text-muted-foreground mt-2">
-                                  {metric.label}
-                                </div>
-                              </Card>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </BlurFade>
-                  )}
-                </div>
-              ),
-            },
-            {
-              id: "learnings",
-              label: "Learnings & Future",
-              content: (
-                <div className="space-y-8">
-
-                  {/* Limitations & Future */}
-                  <BlurFade delay={0.1} inView>
-                    <div className="space-y-6">
-                      <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                        Being Honest: What FORGE Does Well (and What It Doesn't)
-                      </h2>
-
-                      <p className="text-lg text-muted-foreground max-w-3xl">
-                        No tool is perfect. Here's where FORGE excels, where it struggles, and what's coming next.
-                      </p>
-                    </div>
-                  </BlurFade>
-
-                  <BlurFade delay={0.2} inView>
-                    <Suspense
-                      fallback={
-                        <div className="flex items-center justify-center py-12">
-                          <div className="text-muted-foreground">Loading limitations...</div>
-                        </div>
-                      }
-                    >
-                      <LimitationsGrid {...DEFAULT_LIMITATIONS} />
-                    </Suspense>
-                  </BlurFade>
-
-                  {/* Learnings */}
-                  {project.learnings && (
-                    <BlurFade delay={0.3} inView>
-                      <div className="space-y-6">
-                        <h2 className="text-3xl font-bold tracking-tight font-acorn">
-                          Key Learnings
-                        </h2>
-
-                        <div className="grid md:grid-cols-2 gap-6">
-                          {project.learnings.map((learning, index) => (
-                            <Card key={index} className="p-6 space-y-2">
-                              <h3 className="text-lg font-semibold flex items-center gap-2">
-                                <Sparkles className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                                {learning.title}
-                              </h3>
-                              <p className="text-sm text-muted-foreground">
-                                {learning.description}
-                              </p>
-                            </Card>
-                          ))}
-                        </div>
-                      </div>
-                    </BlurFade>
-                  )}
-                </div>
-              ),
-            },
+        {/* Hero Section with Enhanced Component */}
+        <ProjectHeroEnhanced
+          title={project.title}
+          subtitle={project.subtitle || ""}
+          tags={[...project.technologies]}
+          splineUrl={project.splineUrl}
+          hasNDA={project.hasNDA}
+          metrics={project.metrics?.impact ? [...project.metrics.impact] : []}
+          variant="simple"
+          infoBar={[
+            { label: "Timeline", value: project.overview?.timeline || "" },
+            { label: "Role", value: project.overview?.role || "" },
+            { label: "Platform", value: project.overview?.platform || "" },
           ]}
         />
-      </div>
 
-      {/* CTA Section - Outside tabs */}
-      <section className="space-y-8 pb-12">
-        <BlurFade delay={0.1} inView>
-          <h2 className="text-3xl font-bold tracking-tight font-acorn text-center">
-            Want to See More?
-          </h2>
-        </BlurFade>
+        {/* Section 1: Overview - Teal Theme */}
+        <section className="mb-20">
+          <BlurFade delay={0.1} inView>
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
+                  Overview
+                </h2>
+                <div className="h-1 flex-1 bg-gradient-to-r from-teal-500 to-transparent rounded-full max-w-xs" />
+              </div>
+              <p className="text-lg text-muted-foreground max-w-4xl">
+                {project.overview?.intro}
+              </p>
+            </div>
+          </BlurFade>
 
-        <BlurFade delay={0.2} inView>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center">
-            Explore Second Saturday live, check out the code, or get in touch to discuss how FORGE could work for your product ideas.
-          </p>
-        </BlurFade>
+          <BlurFade delay={0.2} inView>
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-4">What I Built</h3>
+              {project.metrics?.overall && (
+                <MetricsGrid metrics={[...project.metrics.overall]} columns={2} />
+              )}
+            </div>
+          </BlurFade>
 
-        <BlurFade delay={0.3} inView>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <Link href="/">
-              <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
-                <div className="flex items-center gap-4">
-                  <Users className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+          {project.context && (
+            <BlurFade delay={0.3} inView>
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950 dark:to-teal-900 border-teal-200 dark:border-teal-800">
+                  <h4 className="font-semibold text-lg mb-3 text-teal-900 dark:text-teal-100">
+                    What is AI-Native Development?
+                  </h4>
+                  <p className="text-sm text-teal-800 dark:text-teal-200">
+                    {project.context.aiNativeDevelopment}
+                  </p>
+                </Card>
+                <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950 dark:to-teal-900 border-teal-200 dark:border-teal-800">
+                  <h4 className="font-semibold text-lg mb-3 text-teal-900 dark:text-teal-100">
+                    What is Second Saturday?
+                  </h4>
+                  <p className="text-sm text-teal-800 dark:text-teal-200">
+                    {project.context.secondSaturday}
+                  </p>
+                </Card>
+              </div>
+            </BlurFade>
+          )}
+        </section>
+
+        {/* Section 2: Problem - Red Theme */}
+        <section className="mb-20">
+          <BlurFade delay={0.1} inView>
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-red-600 dark:text-red-400">
+                  The Problem
+                </h2>
+                <div className="h-1 flex-1 bg-gradient-to-r from-red-500 to-transparent rounded-full max-w-xs" />
+              </div>
+            </div>
+          </BlurFade>
+
+          <BlurFade delay={0.2} inView>
+            <Card className="p-8 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/50 dark:to-red-900/50 border-red-200 dark:border-red-800 mb-8">
+              <p className="text-lg text-red-900 dark:text-red-100">
+                {project.problem?.statement}
+              </p>
+            </Card>
+          </BlurFade>
+
+          <BlurFade delay={0.3} inView>
+            <div className="prose dark:prose-invert max-w-none mb-8">
+              <p className="text-base whitespace-pre-line">{project.problem?.story}</p>
+            </div>
+          </BlurFade>
+
+          {project.problem?.goals && (
+            <BlurFade delay={0.4} inView>
+              <div>
+                <h3 className="text-2xl font-semibold mb-4">Goals</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {project.problem.goals.map((goal, index) => (
+                    <Card key={index} className="p-4 border-red-200 dark:border-red-800">
+                      <div className="flex items-start gap-3">
+                        <Target className="w-5 h-5 text-red-600 dark:text-red-400 mt-1 flex-shrink-0" />
+                        <span className="text-sm">{goal}</span>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </BlurFade>
+          )}
+        </section>
+
+        {/* Section 3: Discovery - Purple Theme */}
+        {project.discovery && (
+          <section className="mb-20">
+            <BlurFade delay={0.1} inView>
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-purple-600 dark:text-purple-400">
+                    Discovery & Journey
+                  </h2>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-purple-500 to-transparent rounded-full max-w-xs" />
+                </div>
+                <p className="text-lg text-muted-foreground max-w-4xl">
+                  {project.discovery.patternRecognition}
+                </p>
+              </div>
+            </BlurFade>
+
+            <BlurFade delay={0.2} inView>
+              <div className="mb-8">
+                <p className="text-base text-muted-foreground mb-6">
+                  {project.discovery.realWorldValidation}
+                </p>
+              </div>
+            </BlurFade>
+
+            {project.discovery.manualWorkflow && (
+              <BlurFade delay={0.3} inView>
+                <Card className="p-8 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/50 dark:to-purple-900/50 border-purple-200 dark:border-purple-800 mb-8">
+                  <h3 className="text-xl font-semibold mb-3 text-purple-900 dark:text-purple-100">
+                    {project.discovery.manualWorkflow.title}
+                  </h3>
+                  <p className="text-sm text-purple-800 dark:text-purple-200 mb-4">
+                    {project.discovery.manualWorkflow.description}
+                  </p>
+                  <div className="space-y-2 mb-6">
+                    {project.discovery.manualWorkflow.steps.map((step, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-200 dark:bg-purple-800 text-purple-900 dark:text-purple-100 text-xs font-semibold flex-shrink-0 mt-0.5">
+                          {index + 1}
+                        </div>
+                        <span className="text-sm text-purple-800 dark:text-purple-200">
+                          {step}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="font-semibold text-purple-900 dark:text-purple-100">
+                        Time per feature:
+                      </span>{" "}
+                      <span className="text-purple-800 dark:text-purple-200">
+                        {project.discovery.manualWorkflow.timePerFeature}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-purple-900 dark:text-purple-100">
+                        Complexity:
+                      </span>{" "}
+                      <span className="text-purple-800 dark:text-purple-200">
+                        {project.discovery.manualWorkflow.complexity}
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              </BlurFade>
+            )}
+
+            <BlurFade delay={0.4} inView>
+              <Card className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 border-purple-300 dark:border-purple-700">
+                <div className="flex items-start gap-3">
+                  <Sparkles className="w-6 h-6 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-semibold">Back to Portfolio</h3>
-                    <p className="text-sm text-muted-foreground">
-                      See more case studies and projects
+                    <h4 className="font-semibold text-lg mb-2 text-purple-900 dark:text-purple-100">
+                      Key Insight
+                    </h4>
+                    <p className="text-sm text-purple-800 dark:text-purple-200">
+                      {project.discovery.insight}
                     </p>
                   </div>
                 </div>
               </Card>
-            </Link>
+            </BlurFade>
+          </section>
+        )}
 
-            <Link href="mailto:kalyanvenkatesh.cha@gmail.com">
-              <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
-                <div className="flex items-center gap-4">
+        {/* Section 4: Users/Personas - Blue Theme */}
+        {project.personas && project.personas.length > 0 && (
+          <section className="mb-20">
+            <BlurFade delay={0.1} inView>
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-blue-600 dark:text-blue-400">
+                    Who Uses FORGE?
+                  </h2>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-blue-500 to-transparent rounded-full max-w-xs" />
+                </div>
+                <p className="text-lg text-muted-foreground max-w-4xl">
+                  {project.overview?.users}
+                </p>
+              </div>
+            </BlurFade>
+
+            <BlurFade delay={0.2} inView>
+              <PersonaGrid personas={[...project.personas]} />
+            </BlurFade>
+          </section>
+        )}
+
+        {/* Section 5: Design Process & Solution - Green Theme */}
+        {project.designProcess && (
+          <section className="mb-20">
+            <BlurFade delay={0.1} inView>
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-green-600 dark:text-green-400">
+                    Design Process & Solution
+                  </h2>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-green-500 to-transparent rounded-full max-w-xs" />
+                </div>
+              </div>
+            </BlurFade>
+
+            {/* Prototype */}
+            <BlurFade delay={0.2} inView>
+              <div className="mb-8">
+                <h3 className="text-2xl font-semibold mb-4">Building FORGE While Building Product</h3>
+                <p className="text-base text-muted-foreground mb-4">
+                  {project.designProcess.prototype.approach}
+                </p>
+                <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800">
+                  <p className="text-sm text-green-800 dark:text-green-200">
+                    {project.designProcess.prototype.features}
+                  </p>
+                </Card>
+              </div>
+            </BlurFade>
+
+            {/* Architecture Diagram */}
+            <BlurFade delay={0.3} inView>
+              <div className="mb-8">
+                <h3 className="text-2xl font-semibold mb-4">9 Specialized Agents, One Coordinated System</h3>
+                <p className="text-base text-muted-foreground mb-6">
+                  Each agent has specific expertise and context. They work in parallel, enforce quality gates, and ship production-ready code.
+                </p>
+                <Suspense
+                  fallback={
+                    <div className="flex items-center justify-center py-12">
+                      <div className="text-muted-foreground">Loading architecture diagram...</div>
+                    </div>
+                  }
+                >
+                  <AgentArchitectureDiagramSimple />
+                </Suspense>
+              </div>
+            </BlurFade>
+
+            {/* 5-Phase Workflow */}
+            {project.features?.workflowPhases && (
+              <BlurFade delay={0.4} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-4">From Idea to Production in 5 Phases</h3>
+                  <div className="grid gap-4">
+                    {project.features.workflowPhases.map((phase, i) => (
+                      <Card key={i} className="p-6 border-green-200 dark:border-green-800">
+                        <div className="flex items-start gap-4">
+                          <div className="text-3xl">{phase.icon}</div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-semibold text-lg">{phase.title}</h4>
+                              <Badge variant="secondary">{phase.duration}</Badge>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{phase.desc}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* Validation */}
+            {project.designProcess.validation && (
+              <BlurFade delay={0.5} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-4">Validation Through Real Features</h3>
+                  <p className="text-base text-muted-foreground mb-4">
+                    {project.designProcess.validation.approach}
+                  </p>
+                  <Card className="p-6 bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 border-green-300 dark:border-green-700">
+                    <p className="text-sm font-semibold text-green-900 dark:text-green-100">
+                      {project.designProcess.validation.response}
+                    </p>
+                  </Card>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* Real Use Cases */}
+            {project.features?.useCases && (
+              <BlurFade delay={0.6} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-4">FORGE in Action: Real Features from Second Saturday</h3>
+                  <p className="text-base text-muted-foreground mb-6">
+                    These aren't hypothetical examples. These are actual features built using FORGE.
+                  </p>
+                  <div className="grid gap-6">
+                    {project.features.useCases.map((useCase, i) => (
+                      <Card key={i} className="p-6 border-green-200 dark:border-green-800">
+                        <div className="flex items-start gap-4">
+                          <div className="text-4xl">{useCase.icon}</div>
+                          <div className="flex-1 space-y-2">
+                            <h4 className="text-xl font-semibold">{useCase.title}</h4>
+                            <p className="text-sm text-green-600 dark:text-green-400 font-medium">
+                              {useCase.time}
+                            </p>
+                            <div className="flex gap-2 flex-wrap">
+                              <Badge variant="secondary">Complexity: {useCase.complexity}</Badge>
+                              <Badge variant="secondary">Agents: {useCase.agents}</Badge>
+                            </div>
+                            <p className="text-muted-foreground text-sm">{useCase.desc}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* Strategic Positioning */}
+            {project.designProcess.strategicPositioning && (
+              <BlurFade delay={0.7} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-4">Strategic Vision</h3>
+                  <div className="space-y-4">
+                    <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800">
+                      <h4 className="font-semibold mb-2 text-green-900 dark:text-green-100">
+                        The Opportunity
+                      </h4>
+                      <p className="text-sm text-green-800 dark:text-green-200">
+                        {project.designProcess.strategicPositioning.opportunity}
+                      </p>
+                    </Card>
+                    <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800">
+                      <h4 className="font-semibold mb-2 text-green-900 dark:text-green-100">
+                        The Vision
+                      </h4>
+                      <p className="text-sm text-green-800 dark:text-green-200">
+                        {project.designProcess.strategicPositioning.pitch}
+                      </p>
+                    </Card>
+                  </div>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* Philosophy */}
+            {project.designProcess.philosophy && (
+              <BlurFade delay={0.8} inView>
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="philosophy" className="border-green-200 dark:border-green-800">
+                    <AccordionTrigger className="text-lg font-semibold hover:text-green-600 dark:hover:text-green-400">
+                      The 60% Philosophy & Framework Design
+                    </AccordionTrigger>
+                    <AccordionContent className="space-y-4 pt-4">
+                      <div>
+                        <h5 className="font-semibold mb-2">Approach</h5>
+                        <p className="text-sm text-muted-foreground">
+                          {project.designProcess.philosophy.approach}
+                        </p>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold mb-2">Structure</h5>
+                        <p className="text-sm text-muted-foreground">
+                          {project.designProcess.philosophy.structure}
+                        </p>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold mb-2">Evolution</h5>
+                        <p className="text-sm text-muted-foreground">
+                          {project.designProcess.philosophy.evolution}
+                        </p>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </BlurFade>
+            )}
+          </section>
+        )}
+
+        {/* Section 6: Impact & Results - Teal Theme */}
+        {project.impact && (
+          <section className="mb-20">
+            <BlurFade delay={0.1} inView>
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-teal-600 dark:text-teal-400">
+                    Impact & Results
+                  </h2>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-teal-500 to-transparent rounded-full max-w-xs" />
+                </div>
+              </div>
+            </BlurFade>
+
+            {/* Before/After Comparison */}
+            {project.features?.beforeAfter && (
+              <BlurFade delay={0.2} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-6">Transformation in Numbers</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card className="p-6 space-y-4">
+                      <h4 className="text-xl font-semibold flex items-center gap-2">
+                        <XCircle className="w-5 h-5 text-red-500" />
+                        Before FORGE
+                      </h4>
+                      <div className="space-y-3 text-sm">
+                        {project.features.beforeAfter.before.map((item, index) => (
+                          <div key={index} className="flex justify-between">
+                            <span className="text-muted-foreground">{item.label}</span>
+                            <span className="font-medium">{item.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </Card>
+
+                    <Card className="p-6 space-y-4 border-teal-600/50 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50">
+                      <h4 className="text-xl font-semibold flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                        After FORGE
+                      </h4>
+                      <div className="space-y-3 text-sm">
+                        {project.features.beforeAfter.after.map((item, index) => (
+                          <div key={index} className="flex justify-between">
+                            <span className="text-muted-foreground">{item.label}</span>
+                            <span className="font-medium text-teal-600 dark:text-teal-400">
+                              {item.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </Card>
+                  </div>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* Second Saturday Stats */}
+            {project.features?.secondSaturdayStats && (
+              <BlurFade delay={0.3} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-6">Second Saturday by the Numbers</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {project.features.secondSaturdayStats.map((stat, index) => (
+                      <Card key={index} className="p-4 text-center border-teal-200 dark:border-teal-800">
+                        <div className="text-xl md:text-2xl font-bold text-teal-600 dark:text-teal-400">
+                          {stat.value}
+                        </div>
+                        <div className="text-xs md:text-sm text-muted-foreground mt-1">
+                          {stat.label}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* Quantified Impact */}
+            {project.impact.quantified && (
+              <BlurFade delay={0.4} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-6">Quantified Impact</h3>
+                  <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-teal-200 dark:border-teal-800">
+                      <h4 className="font-semibold mb-3 text-teal-900 dark:text-teal-100">
+                        Time Savings
+                      </h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-teal-800 dark:text-teal-200">Before:</span>
+                          <span className="font-medium text-teal-900 dark:text-teal-100">
+                            {project.impact.quantified.timeSavings.before}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-teal-800 dark:text-teal-200">After:</span>
+                          <span className="font-medium text-teal-900 dark:text-teal-100">
+                            {project.impact.quantified.timeSavings.after}
+                          </span>
+                        </div>
+                        <div className="flex justify-between pt-2 border-t border-teal-300 dark:border-teal-700">
+                          <span className="text-teal-800 dark:text-teal-200 font-semibold">
+                            Savings:
+                          </span>
+                          <span className="font-bold text-teal-600 dark:text-teal-400">
+                            {project.impact.quantified.timeSavings.savings}
+                          </span>
+                        </div>
+                      </div>
+                    </Card>
+
+                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-teal-200 dark:border-teal-800">
+                      <h4 className="font-semibold mb-3 text-teal-900 dark:text-teal-100">
+                        Scale Impact
+                      </h4>
+                      <div className="space-y-2 text-sm text-teal-800 dark:text-teal-200">
+                        <p>
+                          <span className="font-semibold">Before:</span>{" "}
+                          {project.impact.quantified.scale.featuresBefore}
+                        </p>
+                        <p>
+                          <span className="font-semibold">After:</span>{" "}
+                          {project.impact.quantified.scale.featuresAfter}
+                        </p>
+                        <p className="pt-2 border-t border-teal-300 dark:border-teal-700">
+                          <span className="font-bold text-teal-600 dark:text-teal-400">
+                            {project.impact.quantified.scale.productivityMultiplier}
+                          </span>
+                        </p>
+                      </div>
+                    </Card>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-semibold">Additional Benefits</h4>
+                    {project.impact.quantified.additionalBenefits.map((benefit, index) => (
+                      <Card key={index} className="p-4 border-teal-200 dark:border-teal-800">
+                        <div className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
+                          <span className="text-sm">{benefit}</span>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* User Feedback */}
+            {project.impact.qualitative?.userFeedback && (
+              <BlurFade delay={0.5} inView>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-6">What Users Say</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {project.impact.qualitative.userFeedback.map((feedback, index) => (
+                      <Card
+                        key={index}
+                        className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-teal-200 dark:border-teal-800"
+                      >
+                        <p className="text-sm italic text-teal-900 dark:text-teal-100 mb-3">
+                          "{feedback.quote}"
+                        </p>
+                        <p className="text-xs text-teal-700 dark:text-teal-300 font-medium">
+                          — {feedback.persona}
+                        </p>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            )}
+
+            {/* Recognition */}
+            {project.impact.qualitative && (
+              <BlurFade delay={0.6} inView>
+                <Card className="p-6 bg-gradient-to-r from-teal-100 to-cyan-100 dark:from-teal-900/30 dark:to-cyan-900/30 border-teal-300 dark:border-teal-700">
+                  <div className="flex items-start gap-3">
+                    <Award className="w-6 h-6 text-teal-600 dark:text-teal-400 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-semibold text-lg mb-2 text-teal-900 dark:text-teal-100">
+                        Recognition
+                      </h4>
+                      <p className="text-sm text-teal-800 dark:text-teal-200">
+                        {project.impact.qualitative.recognition}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </BlurFade>
+            )}
+          </section>
+        )}
+
+        {/* Section 7: Reflection - Amber Theme */}
+        {project.reflection && (
+          <section className="mb-20">
+            <BlurFade delay={0.1} inView>
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-amber-600 dark:text-amber-400">
+                    Reflection
+                  </h2>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-amber-500 to-transparent rounded-full max-w-xs" />
+                </div>
+              </div>
+            </BlurFade>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* What Worked Well */}
+              <BlurFade delay={0.2} inView>
+                <div>
+                  <h3 className="text-2xl font-semibold mb-6 text-green-600 dark:text-green-400">
+                    What Worked Well
+                  </h3>
+                  <div className="space-y-4">
+                    {project.reflection.successful.map((item, index) => (
+                      <Card
+                        key={index}
+                        className="p-5 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800"
+                      >
+                        <div className="flex items-start gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-green-900 dark:text-green-100">{item}</p>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+
+              {/* What to Do Differently */}
+              <BlurFade delay={0.3} inView>
+                <div>
+                  <h3 className="text-2xl font-semibold mb-6 text-amber-600 dark:text-amber-400">
+                    What I'd Do Differently
+                  </h3>
+                  <div className="space-y-4">
+                    {project.reflection.doingDifferently.map((item, index) => (
+                      <Card
+                        key={index}
+                        className="p-5 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/50 dark:to-amber-900/50 border-amber-200 dark:border-amber-800"
+                      >
+                        <div className="flex items-start gap-3">
+                          <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-amber-900 dark:text-amber-100">{item}</p>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            </div>
+          </section>
+        )}
+
+        {/* Section 8: Skills Demonstrated */}
+        {project.skillsDemonstrated && (
+          <section className="mb-20">
+            <BlurFade delay={0.1} inView>
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
+                    Skills Demonstrated
+                  </h2>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-neutral-500 to-transparent rounded-full max-w-xs" />
+                </div>
+              </div>
+            </BlurFade>
+
+            <BlurFade delay={0.2} inView>
+              <div className="grid md:grid-cols-2 gap-6">
+                {project.skillsDemonstrated.map((skill, index) => (
+                  <Card key={index} className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="text-4xl">{skill.icon}</div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold mb-2">{skill.title}</h3>
+                        <p className="text-sm text-muted-foreground">{skill.description}</p>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </BlurFade>
+          </section>
+        )}
+
+        {/* CTA Section */}
+        <section className="pb-12">
+          <BlurFade delay={0.1} inView>
+            <h2 className="text-3xl font-bold tracking-tight font-acorn text-center mb-8">
+              Want to Learn More?
+            </h2>
+          </BlurFade>
+
+          <BlurFade delay={0.2} inView>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <Link href="/">
+                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
+                  <div className="flex items-center gap-4">
+                    <TrendingUp className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+                    <div>
+                      <h3 className="font-semibold">Back to Portfolio</h3>
+                      <p className="text-sm text-muted-foreground">
+                        See more case studies and projects
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+
+              <Link href="mailto:kalyanvenkatesh.cha@gmail.com">
+                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
+                  <div className="flex items-center gap-4">
                     <Sparkles className="w-8 h-8 text-teal-600 dark:text-teal-400" />
                     <div>
                       <h3 className="font-semibold">Let's Talk</h3>
@@ -688,14 +777,6 @@ export default function ForgePage() {
             </div>
           </BlurFade>
         </section>
-
-        {/* Footer Note */}
-        <BlurFade delay={0.4} inView>
-          <div className="text-center text-sm text-muted-foreground pb-8">
-            <p>Built with FORGE. Designed and developed by Kalyan Chandana.</p>
-            <p className="mt-2">This page itself was built using the same framework it documents. Meta? Yes. Functional? Absolutely.</p>
-          </div>
-        </BlurFade>
       </div>
     </>
   );

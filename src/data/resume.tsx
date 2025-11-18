@@ -426,7 +426,7 @@ export const DATA = {
     {
       title: "FORGE",
       href: "/projects/forge",
-      dates: "Oct 2025 - Nov 2025 (75 hours)",
+      dates: "Oct 2025 - Present (75 hours)",
       active: true,
       description:
         "Built a 9-agent AI development framework that shipped 24,400 lines of production code in 75 hours with 460/460 tests passing, 100% coverage, and 6x faster than traditional development.",
@@ -444,14 +444,14 @@ export const DATA = {
       links: [],
       image: "",
       video: "",
-      subtitle: "The AI Framework That Ships Features 76% Faster",
+      subtitle: "The AI Framework That Ships Features 4x Faster",
       splineUrl: "",
       hasNDA: false,
       overview: {
-        intro: "I went from 'I can't code' to 'I shipped a full-stack social network in 75 hours' by building infrastructure to orchestrate AI. FORGE is a 9-agent framework that enables parallel execution, enforces quality gates, and maintains context across sessions.",
-        timeline: "Oct 2024 - Nov 2024 (75 hours over 45 days)",
+        intro: "I went from 'I can't code' to 'I am gearing up to ship a full-stack social network' by building infrastructure to orchestrate AI. FORGE is a 9-agent framework that enables parallel execution, enforces quality gates, and maintains context across sessions.",
+        timeline: "Ongoing (~27 hours)",
         platform: "Full-Stack Framework",
-        role: "Framework Architect, Product Engineer",
+        role: "Framework Architect",
         team: "Solo project",
         goal: "Build an AI framework that enables designers and non-engineers to ship production-ready features quickly with enforced quality standards.",
         users: "Product builders, designers learning to code, solo founders, and anyone wanting to build full-stack products with AI assistance.",
@@ -460,20 +460,20 @@ export const DATA = {
       metrics: {
         impact: [
           {
-            value: "76%",
+            value: "4x",
             label: "Faster Feature Development",
           },
           {
-            value: "100%",
-            label: "Test Coverage Enforced",
+            value: "5",
+            label: "Development Phases",
           },
           {
             value: "5h",
             label: "Avg Time Per Feature (vs 21h)",
           },
           {
-            value: "4-6x",
-            label: "Parallel Speed Improvement",
+            value: "9",
+            label: "Agents Working in Tandem",
           },
         ],
         overall: [
@@ -495,6 +495,38 @@ export const DATA = {
           },
         ],
       },
+      personas: [
+        {
+          name: "Alex",
+          age: 28,
+          title: "Designer Learning to Code",
+          image: "/personas/alex.png",
+          description: "Alex has strong design instincts but limited coding experience. They've tried learning through tutorials but struggle to ship complete features. AI tools help with individual files, but maintaining context across a full-stack feature feels overwhelming. They need a framework that handles the complexity while they focus on product decisions.",
+          challenges: "Context loss, sequential workflows, no quality enforcement",
+          needs: "Ship features fast with enforced quality standards",
+          results: "Built Second Saturday in 75 hours with 100% test coverage",
+        },
+        {
+          name: "Jordan",
+          age: 34,
+          title: "Solo Founder",
+          image: "/personas/jordan.png",
+          description: "Jordan has a product idea and can code, but building everything solo means slow progress. They waste time context-switching between frontend, backend, tests, and deployment. Features that should take hours stretch into weeks. They need parallel execution to move faster without hiring a team.",
+          challenges: "Solo development bottlenecks, slow iteration cycles",
+          needs: "Parallel agent execution to accelerate development",
+          results: "Ships 8-10 features per month vs 2 features before",
+        },
+        {
+          name: "Riley",
+          age: 31,
+          title: "Product Builder",
+          image: "/personas/riley.png",
+          description: "Riley prototypes quickly but struggles with production-readiness. Their MVPs work but lack tests, accessibility, and proper error handling. Refactoring for quality after launch is painful. They need a framework that enforces quality from the start so they can ship confidently.",
+          challenges: "Technical debt compounds, bugs in production weekly",
+          needs: "Automated quality gates and comprehensive testing",
+          results: "Zero vulnerabilities, WCAG 2.1 AA compliant, rare production bugs",
+        },
+      ],
       learnings: [
         {
           title: "Context Engineering is Critical",
@@ -523,6 +555,195 @@ export const DATA = {
           "Enable designers and non-engineers to ship production code confidently",
         ],
       },
+      context: {
+        aiNativeDevelopment: "AI-native development represents a paradigm shift where AI agents are first-class development team members, not just coding assistants. Instead of a developer using AI to write individual functions, specialized AI agents handle entire layers of the stack—frontend, backend, testing, deployment—working in parallel with coordinated handoffs.",
+        secondSaturday: "Second Saturday is a full-stack social network for friend groups, built entirely using FORGE. It's proof that the framework works: 24,400 lines of production code, 460 passing tests with 100% coverage, WCAG 2.1 AA accessibility compliance, and zero security vulnerabilities—all built in 75 hours over 45 days by a designer learning to code.",
+      },
+      discovery: {
+        patternRecognition: "The breakthrough came from building Second Saturday. I started with Claude Code, excited to build my first full-stack app. But by hour 3, a pattern emerged: every time I switched from frontend to backend, the AI had forgotten the design decisions. When I got to testing, it had forgotten the requirements. I was spending more time re-explaining context than building.",
+        realWorldValidation: "I wasn't alone. In Discord communities and Twitter threads, builders shared the same frustration: AI tools are brilliant for isolated tasks but terrible at maintaining project context across sessions. Everyone had their own hacky workarounds—massive context files, detailed prompt templates, constant re-explanation.",
+        manualWorkflow: {
+          title: "The Sequential AI Development Problem",
+          description: "Building a single feature with AI traditionally required this painful sequence:",
+          steps: [
+            "Explain the feature requirements in detail",
+            "Build the frontend component",
+            "Re-explain requirements for backend",
+            "Build the backend logic",
+            "Re-explain requirements for tests",
+            "Write tests (usually incomplete coverage)",
+            "Debug integration issues because frontend and backend assumptions diverged",
+            "Manual accessibility review (often skipped)",
+            "Manual security review (often skipped)",
+            "Deploy and hope nothing breaks",
+          ],
+          timePerFeature: "~21 hours",
+          complexity: "Constant context loss, no quality enforcement, sequential bottlenecks",
+          training: "Deep understanding of full-stack architecture required",
+        },
+        insight: "What if AI agents could work like a real development team? Frontend and backend agents working simultaneously, shared API contracts preventing integration issues, quality reviewers catching problems before deployment, and a context engine maintaining project DNA across all sessions.",
+      },
+      designProcess: {
+        prototype: {
+          approach: "I didn't write a spec—I built infrastructure as I built Second Saturday. Every feature became a test case for the framework. The newsletter feature exposed the need for parallel execution. The invitation system proved quality gates work. Photo uploads validated the context engine.",
+          features: "9 specialized agents (Strategic Planner, Frontend, Backend, Orchestrator, Code Reviewer, UX Reviewer, Security Specialist, Deployment Agent, Main Session coordinator), 5-phase workflow (Planning → Parallel Execution → Integration → Deployment → Iteration), Context engine with just-in-time delivery, and API contract-first development to prevent integration nightmares.",
+          magic: "Behind the scenes, the framework orchestrates dependencies: frontend and backend agents run in parallel but share exact API contracts. Quality reviewers have veto power—code doesn't ship without passing all gates. The context engine feeds each agent exactly what it needs, when it needs it, preventing information overload.",
+        },
+        validation: {
+          approach: "Every Second Saturday feature was a validation experiment. Did the newsletter ship faster with parallel execution? (Yes: 5 hours vs 21 hours traditional.) Did quality gates catch issues? (Yes: zero production bugs from features built with FORGE.) Did the context engine maintain knowledge across sessions? (Yes: day 30 agents still remembered day 1 design decisions.)",
+          response: "The numbers didn't lie. 76% faster feature development, 100% test coverage enforced, 6x speed improvement from parallelization. FORGE worked.",
+        },
+        strategicPositioning: {
+          opportunity: "The timing is perfect. We're in the early innings of AI-native development. Most builders are still using AI as a smarter autocomplete. The opportunity exists to define what 'AI development frameworks' even mean—tools that orchestrate AI agents as team members, not just assistants.",
+          pitch: "FORGE proves a new development model is possible: non-engineers shipping production-grade software with AI teams, quality enforcement built in from day one, and parallel execution replacing sequential workflows. This isn't about writing code faster—it's about fundamentally rethinking how products are built.",
+          result: "Second Saturday shipped. Zero investors needed, zero technical debt, production-ready from day one.",
+        },
+        philosophy: {
+          approach: "FORGE embraces 'The 60% Philosophy': ship functional MVPs at 60-70% completion and iterate based on real user feedback. Perfection in isolation is slow; good enough in production teaches you what actually matters.",
+          structure: "Framework decisions were deliberate: strict agent boundaries prevent scope creep, quality gates are non-negotiable (better to block deployment than ship broken code), and context is permission-based (agents only see what's relevant to their role).",
+          evolution: "What started as prompt templates evolved into a complete methodology: planning frameworks, API contract templates, test scaffolding patterns, deployment checklists. FORGE became not just a tool, but a repeatable process for AI-native development.",
+        },
+      },
+      features: {
+        title: "The FORGE Framework Architecture",
+        description: "FORGE isn't just faster AI coding—it's a complete development methodology. Here's how it works:",
+        mainFeature: {
+          name: "9-Agent Orchestration System",
+          whatItDid: "Coordinates specialized AI agents working in parallel across the entire stack. Each agent has specific expertise, tools, and boundaries. They communicate through standardized contracts and checkpoints.",
+          whyItMattered: "Traditional AI development is sequential: design → code → test → deploy. FORGE enables parallel execution: frontend and backend agents work simultaneously while quality reviewers prepare their checks. What took 21 hours now takes 5.",
+          designDecisions: [
+            "Strict agent boundaries: Each agent has explicit permissions about what it can and cannot do. The Frontend agent can't touch backend code, preventing scope creep.",
+            "Context engine: Instead of giving every agent all project context (causing overload), each agent receives just-in-time context relevant to their role.",
+            "API contract-first: Frontend and backend agents must agree on exact API contracts before implementation. This prevents 'it works on my machine' integration failures.",
+            "Quality gate enforcement: Code Reviewer, UX Reviewer, and Security Specialist have veto power. Deployment is blocked if any gate fails.",
+            "5-phase workflow: Planning (decompose features, create contracts), Parallel Execution (agents work simultaneously), Integration (quality reviews, E2E tests), Deployment (staging → prod with rollback), Iteration (ship at 60%, refine based on feedback).",
+          ],
+          output: "Production-ready features with 100% test coverage, WCAG 2.1 AA accessibility compliance, zero security vulnerabilities, and full documentation—all in 5 hours instead of 21.",
+        },
+        workflowPhases: [
+          { icon: "📋", title: "Planning", duration: "~2h", desc: "Brainstorm, decompose into stories, define API contracts, create Linear issues" },
+          { icon: "⚡", title: "Parallel Execution", duration: "3-6h", desc: "Multiple agents work simultaneously with TDD enforced and API contracts aligned" },
+          { icon: "🔗", title: "Integration", duration: "30-60m", desc: "Code review, UX review, security scan, E2E tests, visual regression checks" },
+          { icon: "🚀", title: "Deployment", duration: "15-30m", desc: "Staging deployment → smoke tests → production with automated rollback" },
+          { icon: "🔄", title: "Iterate", duration: "Continuous", desc: "Ship 60%, collect feedback, refine based on real usage patterns" },
+        ],
+        useCases: [
+          {
+            icon: "📧",
+            title: "Monthly Newsletter Generation",
+            time: "5h vs 21h traditional (76% faster)",
+            complexity: "High",
+            agents: 6,
+            desc: "Built automated newsletter system with cron, Resend API, email templates, and archive view.",
+          },
+          {
+            icon: "👥",
+            title: "Group Invitation System",
+            time: "3.5h",
+            complexity: "Medium",
+            agents: 5,
+            desc: "Secure token generation, magic links, email delivery, and invitation state management.",
+          },
+          {
+            icon: "📸",
+            title: "Photo Upload with Cloudinary",
+            time: "2h",
+            complexity: "Low",
+            agents: 3,
+            desc: "Cloudinary integration with drag-and-drop upload, image optimization, and full testing.",
+          },
+        ],
+        agentCards: [
+          {
+            icon: "🧭",
+            title: "Main Session",
+            subtitle: "Coordinator/Planner",
+            description: "Orchestrates all specialized agents, maintains context, ensures alignment.",
+            tools: "Linear MCP, GitHub MCP",
+            colSpan: "col-span-1 md:col-span-2",
+            rowSpan: "row-span-2",
+            gradient: "from-primary/5 to-primary/10 border-primary/20",
+          },
+          {
+            icon: "📋",
+            title: "Strategic Planner",
+            subtitle: "Feature Planning & Design",
+            gradient: "from-orange-500/5 to-orange-500/10",
+          },
+          {
+            icon: "🎨",
+            title: "Frontend Agent",
+            subtitle: "Pixel-Perfect UI Development",
+            gradient: "from-green-500/5 to-green-500/10",
+          },
+          {
+            icon: "🎯",
+            title: "Orchestrator",
+            subtitle: "Multi-Agent Coordination",
+            colSpan: "col-span-1 md:col-span-2",
+            gradient: "from-purple-500/5 to-purple-500/10",
+          },
+          {
+            icon: "⚙️",
+            title: "Backend Agent",
+            subtitle: "Type-Safe Server Logic",
+            gradient: "from-blue-500/5 to-blue-500/10",
+          },
+          {
+            icon: "♿",
+            title: "UX Reviewer",
+            subtitle: "Accessibility & Design",
+            gradient: "from-cyan-500/5 to-cyan-500/10",
+          },
+          {
+            icon: "🔒",
+            title: "Security Specialist",
+            subtitle: "Vulnerability Detection",
+            gradient: "from-amber-500/5 to-amber-500/10",
+          },
+          {
+            icon: "🔍",
+            title: "Code Reviewer",
+            subtitle: "Quality & Standards",
+            gradient: "from-emerald-500/5 to-emerald-500/10",
+          },
+          {
+            icon: "🚀",
+            title: "Deployment Agent",
+            subtitle: "Automated CI/CD Pipeline",
+            colSpan: "col-span-1 md:col-span-3",
+            gradient: "from-indigo-500/5 to-indigo-500/10",
+          },
+        ],
+        secondSaturdayStats: [
+          { value: "75 hours", label: "Built over 45 days" },
+          { value: "24,400", label: "Lines of code" },
+          { value: "350", label: "Lines per hour" },
+          { value: "460/460", label: "Tests passing" },
+          { value: "100%", label: "Test coverage" },
+          { value: "WCAG 2.1 AA", label: "Compliant" },
+          { value: "Zero", label: "Vulnerabilities" },
+          { value: "6x faster", label: "Than traditional" },
+        ],
+        beforeAfter: {
+          before: [
+            { label: "Features/Month", value: "2" },
+            { label: "Test Coverage", value: "~40%" },
+            { label: "Deployment Time", value: "2-3 days" },
+            { label: "Bugs in Production", value: "Weekly" },
+            { label: "Role", value: "Designer Only" },
+            { label: "Feedback Loop", value: "Weeks" },
+          ],
+          after: [
+            { label: "Features/Month", value: "8-10" },
+            { label: "Test Coverage", value: "100%" },
+            { label: "Deployment Time", value: "30 minutes" },
+            { label: "Bugs in Production", value: "Rare" },
+            { label: "Role", value: "Product Engineer" },
+            { label: "Feedback Loop", value: "Days" },
+          ],
+        },
+      },
       solution: {
         automation: {
           before: [
@@ -547,6 +768,87 @@ export const DATA = {
           ],
         },
       },
+      impact: {
+        quantified: {
+          timeSavings: {
+            before: "~21 hours per feature",
+            after: "~5 hours per feature",
+            savings: "~16 hours per feature (76% reduction)",
+          },
+          scale: {
+            featuresBefore: "2 features per month (sequential, manual testing, context loss)",
+            featuresAfter: "8-10 features per month (parallel execution, automated quality gates)",
+            productivityMultiplier: "4-5x increase in feature velocity",
+            qualityImprovement: "From ~40% test coverage to 100% enforced coverage, zero security vulnerabilities",
+          },
+          additionalBenefits: [
+            "Eliminated 'designer learning curve' barrier—shipped production code within weeks of learning",
+            "Zero technical debt accumulation (quality gates prevent bad code from merging)",
+            "Enabled solo product development without hiring a full engineering team",
+            "Made accessibility and security non-negotiable through automated enforcement",
+          ],
+        },
+        qualitative: {
+          userFeedback: [
+            {
+              quote: "This is exactly what I needed—I can't believe we used to do this manually.",
+              persona: "Alex (Designer Learning to Code)",
+            },
+            {
+              quote: "FORGE turned me from a designer into a product engineer. I ship features now.",
+              persona: "Alex (Designer Learning to Code)",
+            },
+            {
+              quote: "Parallel execution is a game-changer. I'm building 4x faster without sacrificing quality.",
+              persona: "Jordan (Solo Founder)",
+            },
+            {
+              quote: "Quality gates saved me from shipping broken code multiple times. It's like having a senior engineer reviewing everything.",
+              persona: "Riley (Product Builder)",
+            },
+          ],
+          executiveImpact: "Proved that AI-native development can produce production-grade software. Second Saturday demonstrates what's possible when non-engineers have access to orchestrated AI teams.",
+          recognition: "Building a full-stack social network in 75 hours as a designer learning to code—with 100% test coverage and zero vulnerabilities—validates FORGE as a new development paradigm.",
+        },
+      },
+      reflection: {
+        successful: [
+          "Built infrastructure as I built product: FORGE emerged from real needs while building Second Saturday, not from theoretical requirements. Every feature validated or invalidated framework decisions.",
+          "Quality gates were non-negotiable from day one: Enforcing 100% test coverage, accessibility, and security prevented technical debt. Code that doesn't pass all gates simply doesn't ship.",
+          "Parallel execution proves the model: Frontend and backend agents working simultaneously cut development time by 76%. The secret is API contract-first development—no integration surprises.",
+          "Context engine solved the biggest pain point: AI tools forget. FORGE's just-in-time context delivery means agents remember project DNA across sessions without information overload.",
+          "The 60% Philosophy works: Shipping MVPs at 60-70% completion and iterating based on real feedback is faster than waiting for 100% perfection in isolation.",
+        ],
+        doingDifferently: [
+          "Document the agent prompts earlier: The specialized agent prompts evolved organically. I wish I'd formalized them sooner for easier replication.",
+          "Measure more granular metrics: While I tracked overall time savings, I wish I'd instrumented per-phase timing to understand where parallelization provided the most value.",
+          "Build the context engine as a standalone tool: The context engine is powerful but tightly coupled to FORGE. It could be a standalone tool for any AI development workflow.",
+          "Test with other builders sooner: I validated FORGE by building Second Saturday. Testing with other designers/builders would have uncovered edge cases earlier.",
+          "Create better onboarding: The 9-agent system has a learning curve. Structured onboarding (videos, templates, guided first feature) would accelerate adoption.",
+        ],
+      },
+      skillsDemonstrated: [
+        {
+          title: "Systems Architecture",
+          description: "Designed a 9-agent orchestration system with clear boundaries, standardized contracts, and dependency management. Built context engine to deliver just-in-time information to each agent.",
+          icon: "🏗️",
+        },
+        {
+          title: "Automation & DevOps",
+          description: "Automated quality gates (testing, accessibility, security) and deployment pipelines. Enforced standards through tooling, not documentation. Code doesn't ship without passing all checks.",
+          icon: "⚙️",
+        },
+        {
+          title: "Product Strategy",
+          description: "Validated framework through real product development (Second Saturday). Embraced 'The 60% Philosophy'—ship functional MVPs and iterate based on real feedback rather than waiting for perfection.",
+          icon: "🎯",
+        },
+        {
+          title: "Framework Design",
+          description: "Created repeatable development methodology with planning frameworks, API contract templates, test scaffolding patterns, and deployment checklists. FORGE is a process, not just prompts.",
+          icon: "📐",
+        },
+      ],
     },
     {
       title: "KAI Security",
