@@ -11,10 +11,10 @@ export function PhaseTimelineExample() {
   return (
     <section className="max-w-4xl mx-auto py-12 px-4">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">
+        <h2 className="text-3xl font-bold text-foreground mb-4">
           FORGE Workflow
         </h2>
-        <p className="text-lg text-neutral-600 dark:text-neutral-400">
+        <p className="text-lg text-muted-foreground">
           Our AI-powered development process follows a structured 5-phase workflow
           that ensures quality, speed, and reliability.
         </p>

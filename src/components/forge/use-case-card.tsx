@@ -72,7 +72,7 @@ export function UseCaseCard({
   return (
     <Card
       className={cn(
-        "border border-neutral-200 dark:border-neutral-800 overflow-hidden transition-all duration-300",
+        "border border-border overflow-hidden transition-all duration-300",
         isExpanded && "ring-2 ring-accent/50",
         className
       )}
@@ -92,7 +92,7 @@ export function UseCaseCard({
               {/* Content */}
               <div className="flex-1 text-left space-y-3">
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                <h3 className="text-lg font-semibold text-foreground">
                   {useCase.title}
                 </h3>
 
@@ -142,10 +142,10 @@ export function UseCaseCard({
           </AccordionTrigger>
 
           <AccordionContent className="px-6 pb-6 pt-2">
-            <div className="space-y-6 border-t border-neutral-200 dark:border-neutral-800 pt-6">
+            <div className="space-y-6 border-t border-border pt-6">
               {/* Requirement Section */}
               <div>
-                <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-2 flex items-center gap-2">
+                <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-accent" />
                   Requirement
                 </h4>
@@ -157,7 +157,7 @@ export function UseCaseCard({
               {/* Challenges Section */}
               {useCase.challenges && useCase.challenges.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3 flex items-center gap-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                     <Zap className="w-4 h-4 text-yellow-500" />
                     Key Challenges
                   </h4>
@@ -178,7 +178,7 @@ export function UseCaseCard({
               {/* Timeline Section */}
               {useCase.timeline && useCase.timeline.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3 flex items-center gap-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-accent" />
                     Development Timeline
                   </h4>
@@ -186,12 +186,12 @@ export function UseCaseCard({
                     {useCase.timeline.map((phase, index) => (
                       <div
                         key={index}
-                        className="relative pl-6 border-l-2 border-neutral-200 dark:border-neutral-800 pb-3 last:pb-0"
+                        className="relative pl-6 border-l-2 border-border pb-3 last:pb-0"
                       >
                         <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-accent"></div>
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <h5 className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                            <h5 className="text-sm font-medium text-foreground">
                               {phase.phase}
                             </h5>
                             <Badge
@@ -214,7 +214,7 @@ export function UseCaseCard({
               {/* What Shipped Section */}
               {useCase.whatShipped && useCase.whatShipped.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3 flex items-center gap-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-green-500" />
                     What Shipped
                   </h4>
@@ -234,11 +234,11 @@ export function UseCaseCard({
 
               {/* User Feedback Section */}
               {useCase.userFeedback && (
-                <div className="bg-neutral-50 dark:bg-neutral-900/50 rounded-lg p-4 border border-neutral-200 dark:border-neutral-800">
+                <div className="bg-muted/50 rounded-lg p-4 border border-border">
                   <div className="flex items-start gap-3">
                     <Quote className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                     <div className="space-y-2">
-                      <p className="text-sm italic text-neutral-700 dark:text-neutral-300">
+                      <p className="text-sm italic text-foreground">
                         "{useCase.userFeedback.quote}"
                       </p>
                       <p className="text-xs text-muted-foreground">

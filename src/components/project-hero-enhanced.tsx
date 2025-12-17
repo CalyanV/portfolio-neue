@@ -139,7 +139,7 @@ export function ProjectHeroEnhanced({
                   {title}
                 </h1>
                 {subtitle && (
-                  <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
+                  <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
                     {subtitle}
                   </p>
                 )}
@@ -173,7 +173,7 @@ export function ProjectHeroEnhanced({
                             </>
                           )}
                         </span>
-                        <span className="text-sm text-teal-800 dark:text-teal-200 font-medium">
+                        <span className="text-sm text-primary font-medium">
                           {metric.label}
                         </span>
                       </div>
@@ -202,13 +202,13 @@ export function ProjectHeroEnhanced({
           {/* Info Bar */}
           {infoBar.length > 0 && (
             <BlurFade delay={0.3} inView>
-              <div className="flex justify-center gap-8 flex-wrap pb-8 border-b border-neutral-200 dark:border-neutral-800">
+              <div className="flex justify-center gap-8 flex-wrap pb-8 border-b border-border">
                 {infoBar.map((item, index) => (
                   <div key={index} className="text-center">
                     <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
                       {item.label}
                     </p>
-                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    <p className="text-sm font-medium text-foreground">
                       {item.value}
                     </p>
                   </div>
@@ -225,7 +225,7 @@ export function ProjectHeroEnhanced({
                   <Badge
                     key={index}
                     variant="secondary"
-                    className="px-3 py-1.5 text-sm bg-neutral-100 dark:bg-neutral-900/30 text-neutral-900 dark:text-neutral-100 border-neutral-200 dark:border-neutral-700"
+                    className="px-3 py-1.5 text-sm bg-neutral-100 dark:bg-neutral-900/30 text-foreground border-neutral-200 dark:border-neutral-700"
                   >
                     {tag}
                   </Badge>
@@ -248,7 +248,7 @@ export function ProjectHeroEnhanced({
                   {title}
                 </h1>
                 {subtitle && (
-                  <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400">
+                  <p className="text-lg md:text-xl text-muted-foreground">
                     {subtitle}
                   </p>
                 )}
@@ -267,7 +267,7 @@ export function ProjectHeroEnhanced({
                 >
                   <div className="flex items-center gap-2 mb-4">
                     <TrendingUp className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                    <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 uppercase tracking-wide">
+                    <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
                       Impact Metrics
                     </h3>
                   </div>
@@ -294,7 +294,7 @@ export function ProjectHeroEnhanced({
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-tight">
+                          <p className="text-xs text-muted-foreground leading-tight">
                             {metric.label}
                           </p>
                         </div>

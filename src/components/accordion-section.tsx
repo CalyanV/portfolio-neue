@@ -38,13 +38,13 @@ export function AccordionSection({
         const isOpen = openItems.has(index);
         return (
           <BlurFade key={index} delay={0.1 + index * 0.05} inView>
-            <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden bg-white dark:bg-neutral-900">
+            <div className="border border-border rounded-lg overflow-hidden bg-card">
               {/* Accordion Header */}
               <button
                 onClick={() => toggleItem(index)}
                 className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
               >
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                <h3 className="text-lg font-semibold text-foreground">
                   {item.title}
                 </h3>
                 <ChevronDown
@@ -56,7 +56,7 @@ export function AccordionSection({
 
               {/* Accordion Content */}
               {isOpen && (
-                <div className="px-6 pb-4 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+                <div className="px-6 pb-4 pt-2 border-t border-border">
                   <div className="prose dark:prose-invert max-w-none text-sm">
                     {item.content}
                   </div>

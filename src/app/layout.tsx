@@ -1,23 +1,24 @@
 import Navbar from "@/components/navbar";
-import { ParticlesBackground } from "@/components/particles-background";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import SmoothScroll from "@/components/smooth-scroll";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Raleway } from "next/font/google";
-import localFont from "next/font/local";
+import { EB_Garamond, Lato } from "next/font/google";
 import "./globals.css";
 
-const raleway = Raleway({
+const ebGaramond = EB_Garamond({
   subsets: ["latin"],
-  variable: "--font-raleway",
+  weight: "500",
+  variable: "--font-garamond",
 });
 
-const acorn = localFont({
-  src: "../fonts/Acorn-Medium.woff",
-  variable: "--font-acorn",
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-lato",
 });
 
 const siteConfig = {
@@ -72,21 +73,22 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          raleway.variable,
-          acorn.variable
+          lato.variable,
+          ebGaramond.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-          <ParticlesBackground />
-          <ScrollToTop />
-          <TooltipProvider delayDuration={0}>
-            <div className="relative">
-              <div className="mx-auto py-12 sm:py-24 px-6">
-                {children}
-                <Navbar />
+          <SmoothScroll>
+            <ScrollToTop />
+            <TooltipProvider delayDuration={0}>
+              <div className="relative">
+                <div className="mx-auto py-12 sm:py-24 px-6">
+                  {children}
+                  <Navbar />
+                </div>
               </div>
-            </div>
-          </TooltipProvider>
+            </TooltipProvider>
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

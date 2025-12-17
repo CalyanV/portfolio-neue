@@ -37,7 +37,7 @@ export function ProjectHero({
         </h1>
 
       {subtitle && (
-          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 mb-6">
+          <p className="text-lg md:text-xl text-muted-foreground mb-6">
             {subtitle}
           </p>
       )}

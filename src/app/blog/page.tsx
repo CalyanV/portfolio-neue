@@ -1,5 +1,6 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { getBlogPosts } from "@/data/blog";
+import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 
 export const metadata = {
@@ -35,7 +36,7 @@ export default async function BlogPage() {
               <div className="w-full flex flex-col">
                 <p className="tracking-tight">{post.metadata.title}</p>
                 <p className="h-6 text-xs text-muted-foreground">
-                  {post.metadata.publishedAt}
+                  {formatDate(post.metadata.publishedAt)}
                 </p>
               </div>
             </Link>

@@ -28,7 +28,7 @@ export function PersonaCard({ persona, delay = 0 }: PersonaCardProps) {
 
   return (
     <BlurFade delay={delay} inView>
-      <div className="p-6 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:shadow-lg transition-shadow">
+      <div className="p-6 rounded-lg border border-border bg-card hover:shadow-lg transition-shadow">
         {/* Header with Avatar */}
         <div className="flex items-center gap-4 mb-4">
           <Avatar className="h-16 w-16">
@@ -36,13 +36,13 @@ export function PersonaCard({ persona, delay = 0 }: PersonaCardProps) {
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+            <h3 className="text-xl font-semibold text-foreground">
               {persona.name}
               {persona.age && (
                 <span className="text-neutral-500 ml-2">({persona.age})</span>
               )}
             </h3>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm text-muted-foreground">
               {persona.title}
             </p>
           </div>
@@ -51,7 +51,7 @@ export function PersonaCard({ persona, delay = 0 }: PersonaCardProps) {
         {/* Description */}
         {persona.description && (
           <div className="mb-4">
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-foreground">
               {persona.description}
             </p>
           </div>
@@ -63,7 +63,7 @@ export function PersonaCard({ persona, delay = 0 }: PersonaCardProps) {
             <h4 className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase mb-1">
               Challenges
             </h4>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-foreground">
               {persona.challenges}
             </p>
           </div>
@@ -75,7 +75,7 @@ export function PersonaCard({ persona, delay = 0 }: PersonaCardProps) {
             <h4 className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase mb-1">
               Needs
             </h4>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="text-sm text-foreground">
               {persona.needs}
             </p>
           </div>

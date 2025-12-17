@@ -32,19 +32,19 @@ export function UseCaseDemoPage() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-        <div className="text-center p-6 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950">
+        <div className="text-center p-6 rounded-lg border border-border bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950">
           <div className="text-3xl font-bold text-accent mb-2">74%</div>
           <div className="text-sm text-muted-foreground">
             Average Time Savings
           </div>
         </div>
-        <div className="text-center p-6 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950">
+        <div className="text-center p-6 rounded-lg border border-border bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950">
           <div className="text-3xl font-bold text-accent mb-2">14</div>
           <div className="text-sm text-muted-foreground">
             Specialized Agents
           </div>
         </div>
-        <div className="text-center p-6 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950">
+        <div className="text-center p-6 rounded-lg border border-border bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950">
           <div className="text-3xl font-bold text-accent mb-2">3</div>
           <div className="text-sm text-muted-foreground">
             Production Features
@@ -64,7 +64,7 @@ export function UseCaseDemoPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="mt-16 text-center p-8 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-gradient-to-br from-accent/5 to-accent/10">
+      <div className="mt-16 text-center p-8 rounded-lg border border-border bg-gradient-to-br from-accent/5 to-accent/10">
         <h2 className="text-2xl font-bold mb-4">
           Want to see FORGE in action?
         </h2>
@@ -82,7 +82,7 @@ export function UseCaseDemoPage() {
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-neutral-200 dark:border-neutral-800 font-medium hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-border font-medium hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
           >
             Get in Touch
           </a>
