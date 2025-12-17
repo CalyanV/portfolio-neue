@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Organic Background - Theme Aware</title>
+    <style>
+        :root {
+            /* Light mode tokens */
+            --bg: hsl(48, 20%, 95%);
+            --fg: hsl(48, 19.6%, 20%);
+            --muted: hsl(50, 2.4%, 50.2%);
+            --primary: hsl(182.7, 93.9%, 32%);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: hsl(60, 1.3%, 15%);
+                --fg: hsl(46.2, 9.8%, 73.9%);
+                --muted: hsl(51.4, 8.9%, 69%);
+                --primary: hsl(182.7, 93.9%, 32%);
+            }
+        }
+
+        /* Force dark mode for testing - remove in production */
+        .dark {
+            --bg: hsl(60, 1.3%, 15%);
+            --fg: hsl(46.2, 9.8%, 73.9%);
+            --muted: hsl(51.4, 8.9%, 69%);
+            --primary: hsl(182.7, 93.9%, 32%);
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: var(--bg);
+            transition: background-color 0.3s ease;
+        }
+        canvas {
+            display: block;
+        }
+
+        /* Theme toggle for testing */
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: var(--fg);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: system-ui, sans-serif;
+            font-size: 12px;
+            z-index: 100;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        #theme-toggle:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <button id="theme-toggle">Toggle Theme</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- VERTEX SHADER -->
+    <script type="x-shader/x-vertex" id="vertexShader">
+        uniform float uTime;
+        uniform vec2 uMouse;
+        uniform float uBaseSize;
+
+        attribute vec3 aOffset;
+        attribute float aPhase;
+
+        varying float vAlpha;
+        varying vec2 vSize;
+        varying vec2 vUv;
+        varying float vWaveIntensity;
+
+        mat2 rotate2d(float angle) {
+            float c = cos(angle);
+            float s = sin(angle);
+            return mat2(c, -s, s, c);
+        }
+
+        void main() {
+            vec3 transformed = position;
+            vUv = uv;
+
+            float dist = distance(aOffset.xy, uMouse);
+            vec2 dir = normalize(aOffset.xy - uMouse + 0.001);
+            float angle = atan(dir.y, dir.x);
+
+            // Gentler organic distortion
+            float distortion = sin(angle * 2.5 + uTime * 0.25 + aPhase) * sin(dist * 0.03) * 18.0;
+            float organicDist = dist + distortion;
+
+            // Wider, softer visibility donut
+            float innerRadius = 60.0;
+            float innerSoftness = 90.0;
+            float centerFade = smoothstep(innerRadius, innerRadius + innerSoftness, dist);
+
+            float outerRadius = 320.0;
+            float outerSoftness = 140.0;
+            float edgeFade = 1.0 - smoothstep(outerRadius - outerSoftness, outerRadius, dist);
+
+            float visibility = centerFade * edgeFade;
+            float sizeMultiplier = 0.005 + 0.995 * visibility;
+
+            // Gentler wave-based stretch
+            float wavePulse = sin(organicDist * 0.06 - uTime * 0.8 + aPhase * 0.5);
+            float stretchFactor = 1.0 + 1.2 * smoothstep(-0.3, 1.0, wavePulse);
+            stretchFactor = clamp(stretchFactor, 1.0, 2.2);
+
+            // Subtle micro pulse
+            float microPulse = 1.0 + 0.08 * sin(uTime * 1.5 + aPhase * 6.28);
+
+            float finalWidth = stretchFactor * sizeMultiplier * uBaseSize * microPulse;
+            float finalHeight = sizeMultiplier * uBaseSize * microPulse;
+
+            transformed.x *= finalWidth;
+            transformed.y *= finalHeight;
+
+            // Rotation with gentle wobble
+            float wobble = sin(uTime * 0.8 + aPhase * 2.0) * 0.1;
+            transformed.xy = rotate2d(angle + wobble) * transformed.xy;
+
+            // Subtle Z-wave
+            float zWave = sin(organicDist * 0.04 - uTime * 0.6 + aPhase) * 5.0;
+
+            vec3 finalPos = aOffset;
+            finalPos.z = zWave * visibility;
+            finalPos += transformed;
+
+            vAlpha = visibility;
+            vSize = vec2(finalWidth, finalHeight);
+            vWaveIntensity = smoothstep(-0.4, 1.0, wavePulse);
+
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(finalPos, 1.0);
+        }
+    </script>
+
+    <!-- FRAGMENT SHADER -->
+    <script type="x-shader/x-fragment" id="fragmentShader">
+        uniform vec3 uColorBase;
+        uniform vec3 uColorAccent;
+        uniform float uTime;
+
+        varying float vAlpha;
+        varying vec2 vSize;
+        varying vec2 vUv;
+        varying float vWaveIntensity;
+
+        float sdRoundedBox(vec2 p, vec2 b, float r) {
+            vec2 q = abs(p) - b + r;
+            return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r;
+        }
+
+        void main() {
+            vec2 centered = vUv * 2.0 - 1.0;
+            float aspectRatio = max(vSize.x / vSize.y, 0.001);
+            centered.x *= aspectRatio;
+
+            vec2 boxBounds = vec2(aspectRatio, 1.0);
+            float d = sdRoundedBox(centered, boxBounds * 0.95, 1.0);
+
+            float edge = 1.0 - smoothstep(-0.05, 0.1, d);
+            if (edge < 0.001) discard;
+
+            // Subtle two-tone: base color with hint of accent at peaks
+            vec3 color = mix(uColorBase, uColorAccent, vWaveIntensity * 0.4);
+
+            // Very subtle brightness variation
+            color *= 0.95 + 0.1 * vWaveIntensity;
+
+            // Reduced overall opacity for background subtlety
+            float finalAlpha = edge * vAlpha * 0.35;
+
+            gl_FragColor = vec4(color, finalAlpha);
+        }
+    </script>
+
+    <script>
+        let scene, camera, renderer;
+        let instancedMesh;
+        let isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        const mouse = new THREE.Vector2(0, 0);
+        const targetMouse = new THREE.Vector2(0, 0);
+
+        const config = {
+            lerpFactor: 0.008,      // Much slower following - creates delay
+            density: 85,
+            area: 1000,
+            spacing: 0,
+            baseSize: 2.0,
+        };
+        config.spacing = config.area / config.density;
+
+        // Theme colors (will be updated based on mode)
+        const colors = {
+            light: {
+                bg: 0xf3f1eb,           // --background light
+                base: 0x808075,          // Muted foreground - subtle gray-brown
+                accent: 0x0a9396,        // Primary teal, subtle
+            },
+            dark: {
+                bg: 0x262626,            // --background dark
+                base: 0x6b6b60,          // Muted foreground - subtle tan-gray
+                accent: 0x0a9396,        // Primary teal
+            }
+        };
+
+        function getColors() {
+            return isDark ? colors.dark : colors.light;
+        }
+
+        function init() {
+            scene = new THREE.Scene();
+
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.set(0, 0, 180);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: true,  // Transparent background to inherit page bg
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setClearColor(getColors().bg, 1);
+            document.body.appendChild(renderer.domElement);
+
+            // --- GEOMETRY ---
+            const baseGeometry = new THREE.PlaneGeometry(1, 1);
+            const geometry = new THREE.InstancedBufferGeometry();
+
+            geometry.index = baseGeometry.index;
+            geometry.attributes.position = baseGeometry.attributes.position;
+            geometry.attributes.uv = baseGeometry.attributes.uv;
+
+            const particleCount = config.density * config.density;
+            const offsets = new Float32Array(particleCount * 3);
+            const phases = new Float32Array(particleCount);
+
+            let i = 0;
+            for (let x = 0; x < config.density; x++) {
+                for (let y = 0; y < config.density; y++) {
+                    const xx = (x * config.spacing) - (config.area / 2);
+                    const yy = (y * config.spacing) - (config.area / 2);
+
+                    // Slight jitter for organic feel
+                    const jitterX = (Math.random() - 0.5) * config.spacing * 0.25;
+                    const jitterY = (Math.random() - 0.5) * config.spacing * 0.25;
+
+                    offsets[i * 3 + 0] = xx + jitterX;
+                    offsets[i * 3 + 1] = yy + jitterY;
+                    offsets[i * 3 + 2] = 0;
+
+                    phases[i] = Math.random() * Math.PI * 2;
+                    i++;
+                }
+            }
+
+            geometry.setAttribute('aOffset', new THREE.InstancedBufferAttribute(offsets, 3));
+            geometry.setAttribute('aPhase', new THREE.InstancedBufferAttribute(phases, 1));
+
+            // --- MATERIAL ---
+            const currentColors = getColors();
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTime: { value: 0 },
+                    uMouse: { value: new THREE.Vector2(0, 0) },
+                    uColorBase: { value: new THREE.Color(currentColors.base) },
+                    uColorAccent: { value: new THREE.Color(currentColors.accent) },
+                    uBaseSize: { value: config.baseSize }
+                },
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent,
+                transparent: true,
+                depthWrite: false,
+                blending: THREE.NormalBlending,  // Normal blending for subtlety
+                side: THREE.DoubleSide
+            });
+
+            instancedMesh = new THREE.Mesh(geometry, material);
+            scene.add(instancedMesh);
+
+            // Event listeners
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('touchmove', onTouchMove, { passive: true });
+
+            // Theme toggle button
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                isDark = e.matches;
+                updateTheme();
+            });
+
+            animate();
+        }
+
+        function toggleTheme() {
+            isDark = !isDark;
+            document.body.classList.toggle('dark', isDark);
+            updateTheme();
+        }
+
+        function updateTheme() {
+            const currentColors = getColors();
+            renderer.setClearColor(currentColors.bg, 1);
+            instancedMesh.material.uniforms.uColorBase.value.set(currentColors.base);
+            instancedMesh.material.uniforms.uColorAccent.value.set(currentColors.accent);
+        }
+
+        function onMouseMove(e) {
+            updateMousePosition(e.clientX, e.clientY);
+        }
+
+        function onTouchMove(e) {
+            if (e.touches.length > 0) {
+                updateMousePosition(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }
+
+        function updateMousePosition(clientX, clientY) {
+            const ndcX = (clientX / window.innerWidth) * 2 - 1;
+            const ndcY = -(clientY / window.innerHeight) * 2 + 1;
+
+            const dist = camera.position.z;
+            const vHeight = 2.0 * Math.tan((camera.fov * Math.PI / 180) / 2) * dist;
+            const vWidth = vHeight * camera.aspect;
+
+            targetMouse.x = ndcX * (vWidth / 2);
+            targetMouse.y = ndcY * (vHeight / 2);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const time = performance.now() * 0.001;
+
+            // Very slow mouse following - creates noticeable delay
+            mouse.x += (targetMouse.x - mouse.x) * config.lerpFactor;
+            mouse.y += (targetMouse.y - mouse.y) * config.lerpFactor;
+
+            instancedMesh.material.uniforms.uTime.value = time;
+            instancedMesh.material.uniforms.uMouse.value.copy(mouse);
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+
+        console.log('🌿 Organic Background loaded');
+        console.log('   Theme:', isDark ? 'dark' : 'light');
+        console.log('   Cursor delay: high (lerp 0.008)');
+    </script>
+</body>
+</html>

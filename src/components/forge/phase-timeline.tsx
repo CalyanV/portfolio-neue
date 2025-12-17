@@ -42,7 +42,7 @@ function PhaseCard({
     <BlurFade delay={0.1 + index * 0.1} inView>
       <div
         ref={ref}
-        className="relative bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+        className="relative bg-card border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
       >
         {/* Phase Header */}
         <button
@@ -58,10 +58,10 @@ function PhaseCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100">
+                <h3 className="text-xl font-bold text-foreground">
                   {phase.title}
                 </h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   {phase.description}
                 </p>
               </div>
@@ -93,11 +93,11 @@ function PhaseCard({
           }}
           className="overflow-hidden"
         >
-          <div className="px-6 pb-6 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+          <div className="px-6 pb-6 pt-2 border-t border-border">
             <div className="space-y-6 pl-16">
               {/* What Happens */}
               <div>
-                <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                <h4 className="text-sm font-semibold text-foreground mb-3">
                   What Happens
                 </h4>
                 <ul className="space-y-2">
@@ -107,7 +107,7 @@ function PhaseCard({
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-300"
+                      className="flex items-start gap-2 text-sm text-foreground"
                     >
                       <span className="text-blue-500 dark:text-blue-400 mt-1 flex-shrink-0">
                         •
@@ -121,7 +121,7 @@ function PhaseCard({
               {/* Output */}
               {phase.details.output && phase.details.output.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                  <h4 className="text-sm font-semibold text-foreground mb-3">
                     Output
                   </h4>
                   <ul className="space-y-2">
@@ -131,7 +131,7 @@ function PhaseCard({
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-300"
+                        className="flex items-start gap-2 text-sm text-foreground"
                       >
                         <span className="text-green-500 dark:text-green-400 mt-1 flex-shrink-0">
                           ✓
@@ -146,7 +146,7 @@ function PhaseCard({
               {/* Rules */}
               {phase.details.rules && phase.details.rules.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                  <h4 className="text-sm font-semibold text-foreground mb-3">
                     Rules
                   </h4>
                   <ul className="space-y-2">
@@ -156,7 +156,7 @@ function PhaseCard({
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-300"
+                        className="flex items-start gap-2 text-sm text-foreground"
                       >
                         <span className="text-amber-500 dark:text-amber-400 mt-1 flex-shrink-0">
                           ⚡

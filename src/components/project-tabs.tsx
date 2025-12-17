@@ -22,7 +22,7 @@ export function ProjectTabs({ tabs, defaultTab }: ProjectTabsProps) {
   return (
     <div className="w-full">
       {/* Tab Navigation */}
-      <div className="border-b border-neutral-200 dark:border-neutral-800 mb-8">
+      <div className="border-b border-border mb-8">
         <nav className="flex space-x-8" aria-label="Tabs">
           {tabs.map((tab, index) => (
             <BlurFade key={tab.id} delay={0.1 + index * 0.05} inView>
@@ -32,7 +32,7 @@ export function ProjectTabs({ tabs, defaultTab }: ProjectTabsProps) {
                   relative py-4 px-1 text-sm font-medium transition-colors
                   ${
                     activeTab === tab.id
-                      ? "text-neutral-900 dark:text-neutral-100"
+                      ? "text-foreground"
                       : "text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300"
                   }
                 `}

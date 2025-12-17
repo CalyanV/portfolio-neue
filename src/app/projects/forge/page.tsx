@@ -90,19 +90,19 @@ export default function ForgePage() {
           {project.context && (
             <BlurFade delay={0.3} inView>
               <div className="grid md:grid-cols-2 gap-6">
-                <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950 dark:to-teal-900 border-teal-200 dark:border-teal-800">
+                <Card className="p-6 bg-gradient-to-br from-primary/10 to-primary/20 border-primary">
                   <h4 className="font-semibold text-lg mb-3 text-teal-900 dark:text-teal-100">
                     What is AI-Native Development?
                   </h4>
-                  <p className="text-sm text-teal-800 dark:text-teal-200">
+                  <p className="text-sm text-primary">
                     {project.context.aiNativeDevelopment}
                   </p>
                 </Card>
-                <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950 dark:to-teal-900 border-teal-200 dark:border-teal-800">
+                <Card className="p-6 bg-gradient-to-br from-primary/10 to-primary/20 border-primary">
                   <h4 className="font-semibold text-lg mb-3 text-teal-900 dark:text-teal-100">
                     What is Second Saturday?
                   </h4>
-                  <p className="text-sm text-teal-800 dark:text-teal-200">
+                  <p className="text-sm text-primary">
                     {project.context.secondSaturday}
                   </p>
                 </Card>
@@ -513,7 +513,7 @@ export default function ForgePage() {
                   <h3 className="text-2xl font-semibold mb-6">Second Saturday by the Numbers</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {project.features.secondSaturdayStats.map((stat, index) => (
-                      <Card key={index} className="p-4 text-center border-teal-200 dark:border-teal-800">
+                      <Card key={index} className="p-4 text-center border-primary">
                         <div className="text-xl md:text-2xl font-bold text-teal-600 dark:text-teal-400">
                           {stat.value}
                         </div>
@@ -533,25 +533,25 @@ export default function ForgePage() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold mb-6">Quantified Impact</h3>
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-teal-200 dark:border-teal-800">
+                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-primary">
                       <h4 className="font-semibold mb-3 text-teal-900 dark:text-teal-100">
                         Time Savings
                       </h4>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-teal-800 dark:text-teal-200">Before:</span>
+                          <span className="text-primary">Before:</span>
                           <span className="font-medium text-teal-900 dark:text-teal-100">
                             {project.impact.quantified.timeSavings.before}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-teal-800 dark:text-teal-200">After:</span>
+                          <span className="text-primary">After:</span>
                           <span className="font-medium text-teal-900 dark:text-teal-100">
                             {project.impact.quantified.timeSavings.after}
                           </span>
                         </div>
                         <div className="flex justify-between pt-2 border-t border-teal-300 dark:border-teal-700">
-                          <span className="text-teal-800 dark:text-teal-200 font-semibold">
+                          <span className="text-primary font-semibold">
                             Savings:
                           </span>
                           <span className="font-bold text-teal-600 dark:text-teal-400">
@@ -561,11 +561,11 @@ export default function ForgePage() {
                       </div>
                     </Card>
 
-                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-teal-200 dark:border-teal-800">
+                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-primary">
                       <h4 className="font-semibold mb-3 text-teal-900 dark:text-teal-100">
                         Scale Impact
                       </h4>
-                      <div className="space-y-2 text-sm text-teal-800 dark:text-teal-200">
+                      <div className="space-y-2 text-sm text-primary">
                         <p>
                           <span className="font-semibold">Before:</span>{" "}
                           {project.impact.quantified.scale.featuresBefore}
@@ -586,7 +586,7 @@ export default function ForgePage() {
                   <div className="space-y-3">
                     <h4 className="font-semibold">Additional Benefits</h4>
                     {project.impact.quantified.additionalBenefits.map((benefit, index) => (
-                      <Card key={index} className="p-4 border-teal-200 dark:border-teal-800">
+                      <Card key={index} className="p-4 border-primary">
                         <div className="flex items-start gap-3">
                           <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
                           <span className="text-sm">{benefit}</span>
@@ -607,7 +607,7 @@ export default function ForgePage() {
                     {project.impact.qualitative.userFeedback.map((feedback, index) => (
                       <Card
                         key={index}
-                        className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-teal-200 dark:border-teal-800"
+                        className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-primary"
                       >
                         <p className="text-sm italic text-teal-900 dark:text-teal-100 mb-3">
                           "{feedback.quote}"
@@ -632,7 +632,7 @@ export default function ForgePage() {
                       <h4 className="font-semibold text-lg mb-2 text-teal-900 dark:text-teal-100">
                         Recognition
                       </h4>
-                      <p className="text-sm text-teal-800 dark:text-teal-200">
+                      <p className="text-sm text-primary">
                         {project.impact.qualitative.recognition}
                       </p>
                     </div>

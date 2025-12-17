@@ -189,7 +189,7 @@ export default function ApplePage() {
               {context?.npi && (
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="npi" className="border-none">
-                    <AccordionTrigger className="text-base font-semibold hover:no-underline py-3 px-4 bg-teal-50/50 dark:bg-teal-900/10 rounded-lg border border-teal-200 dark:border-teal-800">
+                    <AccordionTrigger className="text-base font-semibold hover:no-underline py-3 px-4 bg-teal-50/50 dark:bg-teal-900/10 rounded-lg border border-primary">
                       <div className="flex items-center gap-2">
                         <Sparkles className="w-5 h-5 text-teal-600 dark:text-teal-400" />
                         What is NPI?
@@ -209,7 +209,7 @@ export default function ApplePage() {
                   <h3 className="text-2xl font-semibold">Our Goals</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {problem.goals.map((goal: string, index: number) => (
-                      <Card key={index} className="p-6 bg-teal-50/50 dark:bg-teal-900/10 border-teal-200 dark:border-teal-800">
+                      <Card key={index} className="p-6 bg-teal-50/50 dark:bg-teal-900/10 border-primary">
                         <div className="flex items-start gap-3">
                           <div className="flex-shrink-0 w-8 h-8 rounded-full bg-teal-600 dark:bg-teal-400 text-white flex items-center justify-center font-semibold">
                             {index + 1}
@@ -286,7 +286,7 @@ export default function ApplePage() {
                   )}
 
                   {/* Key Insight */}
-                  <Card className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 border-2 border-teal-200 dark:border-teal-800">
+                  <Card className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 border-2 border-primary">
                     <div className="flex items-center gap-3">
                       <Lightbulb className="w-8 h-8 text-teal-600 dark:text-teal-400" />
                       <p className="text-xl md:text-2xl font-semibold italic text-teal-900 dark:text-teal-100">
@@ -425,7 +425,7 @@ export default function ApplePage() {
                           <p className="text-muted-foreground leading-relaxed">
                             {designProcess.cardSorting.structure}
                           </p>
-                          <div className="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg border border-teal-200 dark:border-teal-800">
+                          <div className="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg border border-primary">
                             <h4 className="font-semibold mb-2 text-teal-900 dark:text-teal-100">Key Finding</h4>
                             <p className="text-muted-foreground leading-relaxed">{designProcess.cardSorting.finding}</p>
                           </div>
@@ -436,7 +436,7 @@ export default function ApplePage() {
 
                   {/* SAP Fiori */}
                   {designProcess.sapFiori && (
-                    <Card className="p-6 bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800">
+                    <Card className="p-6 bg-neutral-50 dark:bg-neutral-900 border-border">
                       <h3 className="text-xl font-semibold mb-3">Working with SAP Fiori Design System</h3>
                       <p className="text-muted-foreground leading-relaxed">{designProcess.sapFiori}</p>
                     </Card>
@@ -555,7 +555,7 @@ export default function ApplePage() {
                                 className={`text-5xl font-bold ${
                                   index === 1
                                     ? "bg-gradient-to-br from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent"
-                                    : "text-neutral-600 dark:text-neutral-400"
+                                    : "text-muted-foreground"
                                 }`}
                               >
                                 {metric.value}
@@ -589,7 +589,7 @@ export default function ApplePage() {
 
                     {/* Time Savings */}
                     {impact.quantified.timeSavings && (
-                      <Card className="p-6 border-2 border-teal-200 dark:border-teal-800">
+                      <Card className="p-6 border-2 border-primary">
                         <h4 className="text-xl font-semibold mb-4">Time Savings Per Report</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                           <div className="text-center">
@@ -616,7 +616,7 @@ export default function ApplePage() {
 
                     {/* Scale Impact */}
                     {impact.quantified.scale && (
-                      <Card className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 border-teal-200 dark:border-teal-800">
+                      <Card className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 border-primary">
                         <h4 className="text-xl font-semibold mb-4">Impact at Scale</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                           <div className="text-center">
@@ -699,7 +699,7 @@ export default function ApplePage() {
                         </Card>
 
                         {/* P4 - Global Retail Team */}
-                        <Card className="p-6 bg-teal-50/50 dark:bg-teal-900/10 border-2 border-teal-200 dark:border-teal-800">
+                        <Card className="p-6 bg-teal-50/50 dark:bg-teal-900/10 border-2 border-primary">
                           <div className="mb-3">
                             <p className="text-sm font-semibold text-teal-900 dark:text-teal-100">P4</p>
                             <p className="text-xs text-teal-700 dark:text-teal-300">Global Retail Team</p>

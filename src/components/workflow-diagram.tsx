@@ -38,7 +38,7 @@ function WorkflowColumn({
 
   return (
       <div
-        className={`border ${style.border} rounded-lg overflow-hidden bg-white dark:bg-neutral-900`}
+        className={`border ${style.border} rounded-lg overflow-hidden bg-card`}
       >
         <div className={`${style.headerBg} px-4 py-3`}>
           <h3 className={`${style.headerText} font-semibold text-lg`}>
@@ -63,18 +63,18 @@ function WorkflowColumn({
                   {index + 1}
                 </div>
                 <div className="flex-1">
-                  <p className="font-medium text-neutral-900 dark:text-neutral-100 text-sm">
+                  <p className="font-medium text-foreground text-sm">
                     {step.label}
                   </p>
                   {step.description && (
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       {step.description}
                     </p>
                   )}
                 </div>
               </div>
               {index < steps.length - 1 && (
-                <div className="ml-4 mt-2 mb-2 border-l-2 border-neutral-200 dark:border-neutral-800 h-4" />
+                <div className="ml-4 mt-2 mb-2 border-l-2 border-border h-4" />
               )}
             </div>
           ))}

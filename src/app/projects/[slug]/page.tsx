@@ -79,7 +79,7 @@ export default function ProjectPage({
       <h1 className="title font-medium text-2xl tracking-tighter mb-4">
         {project.title}
       </h1>
-      <p className="text-neutral-600 dark:text-neutral-400">
+      <p className="text-muted-foreground">
         {project.description}
       </p>
       {/* Project detail components will be added here */}
