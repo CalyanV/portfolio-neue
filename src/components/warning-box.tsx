@@ -20,24 +20,24 @@ export function WarningBox({
   const variants = {
     warning: {
       icon: AlertTriangle,
-      bgColor: "bg-yellow-50 dark:bg-yellow-900/20",
-      borderColor: "border-yellow-200 dark:border-yellow-800",
-      iconColor: "text-yellow-600 dark:text-yellow-500",
-      textColor: "text-yellow-900 dark:text-yellow-100",
+      bgColor: "bg-muted/50",
+      borderColor: "border-border",
+      iconColor: "text-primary",
+      textColor: "text-foreground",
     },
     info: {
       icon: Info,
-      bgColor: "bg-blue-50 dark:bg-blue-900/20",
-      borderColor: "border-blue-200 dark:border-blue-800",
-      iconColor: "text-blue-600 dark:text-blue-500",
-      textColor: "text-blue-900 dark:text-blue-100",
+      bgColor: "bg-primary/5",
+      borderColor: "border-primary/30",
+      iconColor: "text-primary",
+      textColor: "text-foreground",
     },
     danger: {
       icon: AlertCircle,
-      bgColor: "bg-red-50 dark:bg-red-900/20",
-      borderColor: "border-red-200 dark:border-red-800",
-      iconColor: "text-red-600 dark:text-red-500",
-      textColor: "text-red-900 dark:text-red-100",
+      bgColor: "bg-destructive/10",
+      borderColor: "border-destructive/30",
+      iconColor: "text-destructive",
+      textColor: "text-foreground",
     },
   };
 

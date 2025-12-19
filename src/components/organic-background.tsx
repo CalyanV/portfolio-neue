@@ -34,8 +34,8 @@ const VERTEX_SHADER = `
     float distortion = sin(angle * 3.0 + uTime * 0.5) * sin(dist * 0.05) * 20.0;
     float organicDist = dist + distortion;
 
-    // 3. VISIBILITY "DONUT" PROFILE
-    float centerFade = smoothstep(45.0, 110.0, dist);
+    // 3. VISIBILITY "DONUT" PROFILE (deadzone reduced by 40%)
+    float centerFade = smoothstep(27.0, 66.0, dist);
     float edgeFade = 1.0 - smoothstep(120.0, 250.0, dist);
     float visibility = centerFade * edgeFade;
 
@@ -111,10 +111,10 @@ const FRAGMENT_SHADER = `
 `;
 
 const CONFIG = {
-  lerpFactor: 0.008,    // Slow cursor delay
-  density: 80,          // 80x80 grid = 6,400 particles
+  lerpFactor: 0.016,    // Faster cursor follow (2x speed)
+  density: 120,         // 120x120 grid = 14,400 particles (50% more)
   area: 875,            // World units
-  baseSize: 2.0,        // Small particles
+  baseSize: 1.0,        // Smaller particles (50% smaller)
 };
 
 const COLORS = {
@@ -252,6 +252,10 @@ export function OrganicBackground() {
     let animationId: number;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
+
+      // Skip animation if user prefers reduced motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
 
       const time = performance.now() * 0.001;
 

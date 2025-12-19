@@ -22,11 +22,11 @@ export function Hero() {
       {/* Featured Work Badge */}
       <BlurFade delay={BLUR_FADE_DELAY}>
         <Link
-          href="#projects"
+          href="/projects/forge"
           className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 backdrop-blur-sm px-6 py-2 text-sm font-medium transition-all hover:bg-secondary/80 hover:border-border/60"
         >
           <AnimatedShinyText className="text-sm">
-            <span className="font-bold">✨ Apple</span> | Featured Work
+            <span className="font-bold">✨ Forge v1.3</span> | Featured Work
           </AnimatedShinyText>
         </Link>
       </BlurFade>
@@ -35,16 +35,15 @@ export function Hero() {
       <div className="space-y-8 max-w-4xl mx-auto">
         <BlurFade delay={BLUR_FADE_DELAY * 2}>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-garamond tracking-tight leading-[1.1]">
-            Great products don't just work, they{" "}
+            I design. I build. I think {" "}
             <Highlighter
               action="underline"
               color="#39bfc6"
-              strokeWidth={2}
+              strokeWidth={3}
               iterations={3}
             >
-              understand
+              in systems.
             </Highlighter>{" "}
-            you
           </h1>
         </BlurFade>
 
@@ -52,23 +51,31 @@ export function Hero() {
         <BlurFadeText
           delay={BLUR_FADE_DELAY * 3}
           className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
-          text="Hi, I'm KC, a product designer with over 6 years of experience, specializing in AI. I design and build products where technology fades into the background and experience takes center stage."
+          text="I'm KC. Currently designing and building deep agent frameworks and context engines to multiply what teams can deliver. Open to B2B and enterprise opportunities"
         />
       </div>
 
-      {/* CTA Button */}
+      {/* CTA Buttons */}
       <BlurFade delay={BLUR_FADE_DELAY * 4}>
-        <Link href="/about">
-          <InteractiveHoverButton className="text-sm">
-            <span className="flex items-center gap-2">
-              <Avatar className="size-5">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          {/* Secondary CTA - About Me */}
+          <Link href="/about">
+            <button className="flex items-center justify-center rounded-full border bg-background px-6 py-2.5 text-sm font-semibold gap-2 cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors">
+              <Avatar className="size-4">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
-              <span>About – {DATA.name}</span>
-            </span>
-          </InteractiveHoverButton>
-        </Link>
+              About Me
+            </button>
+          </Link>
+
+          {/* Primary CTA - View Resume */}
+          <Link href="/KC Resume.pdf" target="_blank" rel="noopener noreferrer">
+            <InteractiveHoverButton className="text-sm">
+              <span>View Resume</span>
+            </InteractiveHoverButton>
+          </Link>
+        </div>
       </BlurFade>
     </section>
   );

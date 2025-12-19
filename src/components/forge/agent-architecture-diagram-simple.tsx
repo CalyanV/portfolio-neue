@@ -376,20 +376,20 @@ export function AgentArchitectureDiagramSimple() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">9</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-primary">9</div>
           <div className="text-xs text-muted-foreground">Specialized Agents</div>
         </Card>
-        <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">4-6x</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-primary">4-6x</div>
           <div className="text-xs text-muted-foreground">Parallel Speed</div>
         </Card>
-        <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">100%</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-primary">100%</div>
           <div className="text-xs text-muted-foreground">Test Coverage</div>
         </Card>
-        <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">3</div>
+        <Card className="p-4 text-center bg-card border-border">
+          <div className="text-2xl font-bold text-primary">3</div>
           <div className="text-xs text-muted-foreground">Review Layers</div>
         </Card>
       </div>

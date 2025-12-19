@@ -38,3 +38,26 @@ export function formatDate(date: string) {
     return `${fullDate} (${yearsAgo}y ago)`;
   }
 }
+
+export function parseMetricValue(value: string) {
+  // Extract numeric value from strings like "7x", "96%", "~73k", "$120k"
+  const numMatch = value.match(/[\d.]+/);
+  if (!numMatch) return 0;
+  const num = parseFloat(numMatch[0]);
+
+  // Handle thousands (k)
+  if (value.toLowerCase().includes('k')) {
+    return num;
+  }
+  return num;
+}
+
+export function formatMetricValue(value: string, tickerValue: number) {
+  // Return the formatted value with suffix
+  if (value.includes('x')) return `${tickerValue}x`;
+  if (value.includes('%')) return `${tickerValue}%`;
+  if (value.toLowerCase().includes('h')) return `~${tickerValue}h`;
+  if (value.toLowerCase().includes('k')) return `~${tickerValue}k`;
+  if (value.includes('$')) return `$${tickerValue}k`;
+  return tickerValue.toString();
+}

@@ -16,7 +16,6 @@ import {
 import Link from "next/link";
 import { lazy, Suspense } from "react";
 import { DotPattern } from "@/components/ui/dot-pattern";
-import { MetricsGrid } from "@/components/metrics-grid";
 
 // Lazy load heavy components
 const AgentArchitectureDiagramSimple = lazy(() =>
@@ -42,7 +41,7 @@ export default function ForgePage() {
         cx={1}
         cy={1}
         cr={1}
-        className="fixed inset-0 text-neutral-300 dark:text-neutral-700 opacity-50 -z-10"
+        className="fixed inset-0 muted opacity-35 -z-10"
       />
 
       <div className="relative mx-auto px-6 md:px-12 lg:px-16 py-12 max-w-7xl">
@@ -62,7 +61,7 @@ export default function ForgePage() {
           ]}
         />
 
-        {/* Section 1: Overview - Teal Theme */}
+        {/* Section 1: Overview */}
         <section className="mb-20">
           <BlurFade delay={0.1} inView>
             <div className="mb-6">
@@ -70,7 +69,7 @@ export default function ForgePage() {
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                   Overview
                 </h2>
-                <div className="h-1 flex-1 bg-gradient-to-r from-teal-500 to-transparent rounded-full max-w-xs" />
+                <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
               </div>
               <p className="text-lg text-muted-foreground max-w-4xl">
                 {project.overview?.intro}
@@ -78,31 +77,22 @@ export default function ForgePage() {
             </div>
           </BlurFade>
 
-          <BlurFade delay={0.2} inView>
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4">What I Built</h3>
-              {project.metrics?.overall && (
-                <MetricsGrid metrics={[...project.metrics.overall]} columns={2} />
-              )}
-            </div>
-          </BlurFade>
-
           {project.context && (
             <BlurFade delay={0.3} inView>
               <div className="grid md:grid-cols-2 gap-6">
-                <Card className="p-6 bg-gradient-to-br from-primary/10 to-primary/20 border-primary">
-                  <h4 className="font-semibold text-lg mb-3 text-teal-900 dark:text-teal-100">
+                <Card className="p-6 bg-card border-border">
+                  <h4 className="font-semibold text-lg mb-3 text-foreground">
                     What is AI-Native Development?
                   </h4>
-                  <p className="text-sm text-primary">
+                  <p className="text-sm text-muted-foreground">
                     {project.context.aiNativeDevelopment}
                   </p>
                 </Card>
-                <Card className="p-6 bg-gradient-to-br from-primary/10 to-primary/20 border-primary">
-                  <h4 className="font-semibold text-lg mb-3 text-teal-900 dark:text-teal-100">
+                <Card className="p-6 bg-card border-border">
+                  <h4 className="font-semibold text-lg mb-3 text-foreground">
                     What is Second Saturday?
                   </h4>
-                  <p className="text-sm text-primary">
+                  <p className="text-sm text-muted-foreground">
                     {project.context.secondSaturday}
                   </p>
                 </Card>
@@ -111,30 +101,83 @@ export default function ForgePage() {
           )}
         </section>
 
-        {/* Section 2: Problem - Red Theme */}
+        {/* Section 2: Problem */}
         <section className="mb-20">
           <BlurFade delay={0.1} inView>
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-red-600 dark:text-red-400">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                   The Problem
                 </h2>
-                <div className="h-1 flex-1 bg-gradient-to-r from-red-500 to-transparent rounded-full max-w-xs" />
+                <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
               </div>
             </div>
           </BlurFade>
 
           <BlurFade delay={0.2} inView>
-            <Card className="p-8 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/50 dark:to-red-900/50 border-red-200 dark:border-red-800 mb-8">
-              <p className="text-lg text-red-900 dark:text-red-100">
+            <Card className="p-8 bg-muted border-border mb-8">
+              <p className="text-lg text-foreground">
                 {project.problem?.statement}
               </p>
             </Card>
           </BlurFade>
 
           <BlurFade delay={0.3} inView>
-            <div className="prose dark:prose-invert max-w-none mb-8">
-              <p className="text-base whitespace-pre-line">{project.problem?.story}</p>
+            <p className="text-lg text-muted-foreground mb-8">
+              I needed something that could work like a real development team: Multiple specialists collaborating in parallel, with a shared memory system that never forgets.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              {/* Traditional AI Development */}
+              <Card className="p-6 bg-card border-border">
+                <div className="flex items-center gap-2 mb-4">
+                  <XCircle className="w-5 h-5 text-muted-foreground" />
+                  <h4 className="font-semibold text-lg">Traditional AI Development</h4>
+                </div>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <span className="text-muted-foreground mt-0.5">•</span>
+                    <span className="text-sm text-muted-foreground">Sequential execution (design, then code, then test, then debug)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-muted-foreground mt-0.5">•</span>
+                    <span className="text-sm text-muted-foreground">Constant context loss (by hour 3, the AI forgot what we wanted)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-muted-foreground mt-0.5">•</span>
+                    <span className="text-sm text-muted-foreground">No quality enforcement (ship broken code, fix later)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-muted-foreground mt-0.5">•</span>
+                    <span className="text-sm text-muted-foreground">21 hours per feature on average</span>
+                  </li>
+                </ul>
+              </Card>
+
+              {/* What I Needed */}
+              <Card className="p-6 bg-primary/5 border-primary">
+                <div className="flex items-center gap-2 mb-4">
+                  <CheckCircle2 className="w-5 h-5 text-primary" />
+                  <h4 className="font-semibold text-lg">What I Needed</h4>
+                </div>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-foreground">Parallel execution (all specialists working simultaneously)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-foreground">Context engine (just-in-time context delivery)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-foreground">Automated quality gates (100% test coverage enforced)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-foreground">Ship in days, not weeks (5 hours per feature)</span>
+                  </li>
+                </ul>
+              </Card>
             </div>
           </BlurFade>
 
@@ -144,9 +187,9 @@ export default function ForgePage() {
                 <h3 className="text-2xl font-semibold mb-4">Goals</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {project.problem.goals.map((goal, index) => (
-                    <Card key={index} className="p-4 border-red-200 dark:border-red-800">
+                    <Card key={index} className="p-4 border-border">
                       <div className="flex items-start gap-3">
-                        <Target className="w-5 h-5 text-red-600 dark:text-red-400 mt-1 flex-shrink-0" />
+                        <Target className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                         <span className="text-sm">{goal}</span>
                       </div>
                     </Card>
@@ -157,16 +200,16 @@ export default function ForgePage() {
           )}
         </section>
 
-        {/* Section 3: Discovery - Purple Theme */}
+        {/* Section 3: Discovery */}
         {project.discovery && (
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-purple-600 dark:text-purple-400">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                     Discovery & Journey
                   </h2>
-                  <div className="h-1 flex-1 bg-gradient-to-r from-purple-500 to-transparent rounded-full max-w-xs" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
                 <p className="text-lg text-muted-foreground max-w-4xl">
                   {project.discovery.patternRecognition}
@@ -184,20 +227,20 @@ export default function ForgePage() {
 
             {project.discovery.manualWorkflow && (
               <BlurFade delay={0.3} inView>
-                <Card className="p-8 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/50 dark:to-purple-900/50 border-purple-200 dark:border-purple-800 mb-8">
-                  <h3 className="text-xl font-semibold mb-3 text-purple-900 dark:text-purple-100">
+                <Card className="p-8 bg-muted border-border mb-8">
+                  <h3 className="text-xl font-semibold mb-3 text-foreground">
                     {project.discovery.manualWorkflow.title}
                   </h3>
-                  <p className="text-sm text-purple-800 dark:text-purple-200 mb-4">
+                  <p className="text-sm text-muted-foreground mb-4">
                     {project.discovery.manualWorkflow.description}
                   </p>
                   <div className="space-y-2 mb-6">
                     {project.discovery.manualWorkflow.steps.map((step, index) => (
                       <div key={index} className="flex items-start gap-3">
-                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-200 dark:bg-purple-800 text-purple-900 dark:text-purple-100 text-xs font-semibold flex-shrink-0 mt-0.5">
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/20 text-foreground text-xs font-semibold flex-shrink-0 mt-0.5">
                           {index + 1}
                         </div>
-                        <span className="text-sm text-purple-800 dark:text-purple-200">
+                        <span className="text-sm text-muted-foreground">
                           {step}
                         </span>
                       </div>
@@ -205,18 +248,18 @@ export default function ForgePage() {
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <span className="font-semibold text-purple-900 dark:text-purple-100">
+                      <span className="font-semibold text-foreground">
                         Time per feature:
                       </span>{" "}
-                      <span className="text-purple-800 dark:text-purple-200">
+                      <span className="text-muted-foreground">
                         {project.discovery.manualWorkflow.timePerFeature}
                       </span>
                     </div>
                     <div>
-                      <span className="font-semibold text-purple-900 dark:text-purple-100">
+                      <span className="font-semibold text-foreground">
                         Complexity:
                       </span>{" "}
-                      <span className="text-purple-800 dark:text-purple-200">
+                      <span className="text-muted-foreground">
                         {project.discovery.manualWorkflow.complexity}
                       </span>
                     </div>
@@ -226,14 +269,14 @@ export default function ForgePage() {
             )}
 
             <BlurFade delay={0.4} inView>
-              <Card className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 border-purple-300 dark:border-purple-700">
+              <Card className="p-6 bg-primary/5 border-primary/30">
                 <div className="flex items-start gap-3">
-                  <Sparkles className="w-6 h-6 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" />
+                  <Sparkles className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-lg mb-2 text-purple-900 dark:text-purple-100">
+                    <h4 className="font-semibold text-lg mb-2 text-foreground">
                       Key Insight
                     </h4>
-                    <p className="text-sm text-purple-800 dark:text-purple-200">
+                    <p className="text-sm text-muted-foreground">
                       {project.discovery.insight}
                     </p>
                   </div>
@@ -243,16 +286,16 @@ export default function ForgePage() {
           </section>
         )}
 
-        {/* Section 4: Users/Personas - Blue Theme */}
+        {/* Section 4: Users/Personas */}
         {project.personas && project.personas.length > 0 && (
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-blue-600 dark:text-blue-400">
-                    Who Uses FORGE?
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
+                    Who Uses Forge v1.3?
                   </h2>
-                  <div className="h-1 flex-1 bg-gradient-to-r from-blue-500 to-transparent rounded-full max-w-xs" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
                 <p className="text-lg text-muted-foreground max-w-4xl">
                   {project.overview?.users}
@@ -266,16 +309,16 @@ export default function ForgePage() {
           </section>
         )}
 
-        {/* Section 5: Design Process & Solution - Green Theme */}
+        {/* Section 5: Design Process & Solution */}
         {project.designProcess && (
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-green-600 dark:text-green-400">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                     Design Process & Solution
                   </h2>
-                  <div className="h-1 flex-1 bg-gradient-to-r from-green-500 to-transparent rounded-full max-w-xs" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
               </div>
             </BlurFade>
@@ -283,12 +326,12 @@ export default function ForgePage() {
             {/* Prototype */}
             <BlurFade delay={0.2} inView>
               <div className="mb-8">
-                <h3 className="text-2xl font-semibold mb-4">Building FORGE While Building Product</h3>
+                <h3 className="text-2xl font-semibold mb-4">Building Forge v1.3 While Building Product</h3>
                 <p className="text-base text-muted-foreground mb-4">
                   {project.designProcess.prototype.approach}
                 </p>
-                <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800">
-                  <p className="text-sm text-green-800 dark:text-green-200">
+                <Card className="p-6 bg-muted border-border">
+                  <p className="text-sm text-muted-foreground">
                     {project.designProcess.prototype.features}
                   </p>
                 </Card>
@@ -321,7 +364,7 @@ export default function ForgePage() {
                   <h3 className="text-2xl font-semibold mb-4">From Idea to Production in 5 Phases</h3>
                   <div className="grid gap-4">
                     {project.features.workflowPhases.map((phase, i) => (
-                      <Card key={i} className="p-6 border-green-200 dark:border-green-800">
+                      <Card key={i} className="p-6 border-border">
                         <div className="flex items-start gap-4">
                           <div className="text-3xl">{phase.icon}</div>
                           <div className="flex-1">
@@ -347,8 +390,8 @@ export default function ForgePage() {
                   <p className="text-base text-muted-foreground mb-4">
                     {project.designProcess.validation.approach}
                   </p>
-                  <Card className="p-6 bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 border-green-300 dark:border-green-700">
-                    <p className="text-sm font-semibold text-green-900 dark:text-green-100">
+                  <Card className="p-6 bg-primary/5 border-primary/30">
+                    <p className="text-sm font-semibold text-foreground">
                       {project.designProcess.validation.response}
                     </p>
                   </Card>
@@ -360,18 +403,18 @@ export default function ForgePage() {
             {project.features?.useCases && (
               <BlurFade delay={0.6} inView>
                 <div className="mb-8">
-                  <h3 className="text-2xl font-semibold mb-4">FORGE in Action: Real Features from Second Saturday</h3>
+                  <h3 className="text-2xl font-semibold mb-4">Forge v1.3 in Action: Real Features from Second Saturday</h3>
                   <p className="text-base text-muted-foreground mb-6">
                     These aren't hypothetical examples. These are actual features built using FORGE.
                   </p>
                   <div className="grid gap-6">
                     {project.features.useCases.map((useCase, i) => (
-                      <Card key={i} className="p-6 border-green-200 dark:border-green-800">
+                      <Card key={i} className="p-6 border-border">
                         <div className="flex items-start gap-4">
                           <div className="text-4xl">{useCase.icon}</div>
                           <div className="flex-1 space-y-2">
                             <h4 className="text-xl font-semibold">{useCase.title}</h4>
-                            <p className="text-sm text-green-600 dark:text-green-400 font-medium">
+                            <p className="text-sm text-primary font-medium">
                               {useCase.time}
                             </p>
                             <div className="flex gap-2 flex-wrap">
@@ -394,19 +437,19 @@ export default function ForgePage() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold mb-4">Strategic Vision</h3>
                   <div className="space-y-4">
-                    <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800">
-                      <h4 className="font-semibold mb-2 text-green-900 dark:text-green-100">
+                    <Card className="p-6 bg-card border-border">
+                      <h4 className="font-semibold mb-2 text-foreground">
                         The Opportunity
                       </h4>
-                      <p className="text-sm text-green-800 dark:text-green-200">
+                      <p className="text-sm text-muted-foreground">
                         {project.designProcess.strategicPositioning.opportunity}
                       </p>
                     </Card>
-                    <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800">
-                      <h4 className="font-semibold mb-2 text-green-900 dark:text-green-100">
+                    <Card className="p-6 bg-card border-border">
+                      <h4 className="font-semibold mb-2 text-foreground">
                         The Vision
                       </h4>
-                      <p className="text-sm text-green-800 dark:text-green-200">
+                      <p className="text-sm text-muted-foreground">
                         {project.designProcess.strategicPositioning.pitch}
                       </p>
                     </Card>
@@ -419,8 +462,8 @@ export default function ForgePage() {
             {project.designProcess.philosophy && (
               <BlurFade delay={0.8} inView>
                 <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="philosophy" className="border-green-200 dark:border-green-800">
-                    <AccordionTrigger className="text-lg font-semibold hover:text-green-600 dark:hover:text-green-400">
+                  <AccordionItem value="philosophy" className="border-border">
+                    <AccordionTrigger className="text-lg font-semibold hover:text-primary">
                       The 60% Philosophy & Framework Design
                     </AccordionTrigger>
                     <AccordionContent className="space-y-4 pt-4">
@@ -450,16 +493,16 @@ export default function ForgePage() {
           </section>
         )}
 
-        {/* Section 6: Impact & Results - Teal Theme */}
+        {/* Section 6: Impact & Results */}
         {project.impact && (
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-teal-600 dark:text-teal-400">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                     Impact & Results
                   </h2>
-                  <div className="h-1 flex-1 bg-gradient-to-r from-teal-500 to-transparent rounded-full max-w-xs" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
               </div>
             </BlurFade>
@@ -470,31 +513,31 @@ export default function ForgePage() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold mb-6">Transformation in Numbers</h3>
                   <div className="grid md:grid-cols-2 gap-6">
-                    <Card className="p-6 space-y-4">
+                    <Card className="p-6 space-y-4 bg-card border-border">
                       <h4 className="text-xl font-semibold flex items-center gap-2">
-                        <XCircle className="w-5 h-5 text-red-500" />
-                        Before FORGE
+                        <XCircle className="w-5 h-5 text-muted-foreground" />
+                        Before Forge v1.3
                       </h4>
                       <div className="space-y-3 text-sm">
                         {project.features.beforeAfter.before.map((item, index) => (
                           <div key={index} className="flex justify-between">
                             <span className="text-muted-foreground">{item.label}</span>
-                            <span className="font-medium">{item.value}</span>
+                            <span className="font-medium text-foreground">{item.value}</span>
                           </div>
                         ))}
                       </div>
                     </Card>
 
-                    <Card className="p-6 space-y-4 border-teal-600/50 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50">
+                    <Card className="p-6 space-y-4 border-primary bg-primary/5">
                       <h4 className="text-xl font-semibold flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                        After FORGE
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                        After Forge v1.3
                       </h4>
                       <div className="space-y-3 text-sm">
                         {project.features.beforeAfter.after.map((item, index) => (
                           <div key={index} className="flex justify-between">
                             <span className="text-muted-foreground">{item.label}</span>
-                            <span className="font-medium text-teal-600 dark:text-teal-400">
+                            <span className="font-medium text-primary">
                               {item.value}
                             </span>
                           </div>
@@ -513,8 +556,8 @@ export default function ForgePage() {
                   <h3 className="text-2xl font-semibold mb-6">Second Saturday by the Numbers</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {project.features.secondSaturdayStats.map((stat, index) => (
-                      <Card key={index} className="p-4 text-center border-primary">
-                        <div className="text-xl md:text-2xl font-bold text-teal-600 dark:text-teal-400">
+                      <Card key={index} className="p-4 text-center border-border bg-card">
+                        <div className="text-xl md:text-2xl font-bold text-primary">
                           {stat.value}
                         </div>
                         <div className="text-xs md:text-sm text-muted-foreground mt-1">
@@ -533,49 +576,49 @@ export default function ForgePage() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold mb-6">Quantified Impact</h3>
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-primary">
-                      <h4 className="font-semibold mb-3 text-teal-900 dark:text-teal-100">
+                    <Card className="p-6 bg-card border-border">
+                      <h4 className="font-semibold mb-3 text-foreground">
                         Time Savings
                       </h4>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-primary">Before:</span>
-                          <span className="font-medium text-teal-900 dark:text-teal-100">
+                          <span className="text-muted-foreground">Before:</span>
+                          <span className="font-medium text-foreground">
                             {project.impact.quantified.timeSavings.before}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-primary">After:</span>
-                          <span className="font-medium text-teal-900 dark:text-teal-100">
+                          <span className="text-muted-foreground">After:</span>
+                          <span className="font-medium text-foreground">
                             {project.impact.quantified.timeSavings.after}
                           </span>
                         </div>
-                        <div className="flex justify-between pt-2 border-t border-teal-300 dark:border-teal-700">
-                          <span className="text-primary font-semibold">
+                        <div className="flex justify-between pt-2 border-t border-border">
+                          <span className="text-muted-foreground font-semibold">
                             Savings:
                           </span>
-                          <span className="font-bold text-teal-600 dark:text-teal-400">
+                          <span className="font-bold text-primary">
                             {project.impact.quantified.timeSavings.savings}
                           </span>
                         </div>
                       </div>
                     </Card>
 
-                    <Card className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-primary">
-                      <h4 className="font-semibold mb-3 text-teal-900 dark:text-teal-100">
+                    <Card className="p-6 bg-card border-border">
+                      <h4 className="font-semibold mb-3 text-foreground">
                         Scale Impact
                       </h4>
-                      <div className="space-y-2 text-sm text-primary">
+                      <div className="space-y-2 text-sm text-muted-foreground">
                         <p>
-                          <span className="font-semibold">Before:</span>{" "}
+                          <span className="font-semibold text-foreground">Before:</span>{" "}
                           {project.impact.quantified.scale.featuresBefore}
                         </p>
                         <p>
-                          <span className="font-semibold">After:</span>{" "}
+                          <span className="font-semibold text-foreground">After:</span>{" "}
                           {project.impact.quantified.scale.featuresAfter}
                         </p>
-                        <p className="pt-2 border-t border-teal-300 dark:border-teal-700">
-                          <span className="font-bold text-teal-600 dark:text-teal-400">
+                        <p className="pt-2 border-t border-border">
+                          <span className="font-bold text-primary">
                             {project.impact.quantified.scale.productivityMultiplier}
                           </span>
                         </p>
@@ -586,9 +629,9 @@ export default function ForgePage() {
                   <div className="space-y-3">
                     <h4 className="font-semibold">Additional Benefits</h4>
                     {project.impact.quantified.additionalBenefits.map((benefit, index) => (
-                      <Card key={index} className="p-4 border-primary">
+                      <Card key={index} className="p-4 border-border">
                         <div className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-teal-600 dark:text-teal-400 mt-0.5 flex-shrink-0" />
+                          <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                           <span className="text-sm">{benefit}</span>
                         </div>
                       </Card>
@@ -607,12 +650,12 @@ export default function ForgePage() {
                     {project.impact.qualitative.userFeedback.map((feedback, index) => (
                       <Card
                         key={index}
-                        className="p-6 bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 border-primary"
+                        className="p-6 bg-card border-border"
                       >
-                        <p className="text-sm italic text-teal-900 dark:text-teal-100 mb-3">
+                        <p className="text-sm italic text-foreground mb-3">
                           "{feedback.quote}"
                         </p>
-                        <p className="text-xs text-teal-700 dark:text-teal-300 font-medium">
+                        <p className="text-xs text-muted-foreground font-medium">
                           — {feedback.persona}
                         </p>
                       </Card>
@@ -625,14 +668,14 @@ export default function ForgePage() {
             {/* Recognition */}
             {project.impact.qualitative && (
               <BlurFade delay={0.6} inView>
-                <Card className="p-6 bg-gradient-to-r from-teal-100 to-cyan-100 dark:from-teal-900/30 dark:to-cyan-900/30 border-teal-300 dark:border-teal-700">
+                <Card className="p-6 bg-primary/5 border-primary/30">
                   <div className="flex items-start gap-3">
-                    <Award className="w-6 h-6 text-teal-600 dark:text-teal-400 flex-shrink-0 mt-1" />
+                    <Award className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold text-lg mb-2 text-teal-900 dark:text-teal-100">
+                      <h4 className="font-semibold text-lg mb-2 text-foreground">
                         Recognition
                       </h4>
-                      <p className="text-sm text-primary">
+                      <p className="text-sm text-muted-foreground">
                         {project.impact.qualitative.recognition}
                       </p>
                     </div>
@@ -643,16 +686,16 @@ export default function ForgePage() {
           </section>
         )}
 
-        {/* Section 7: Reflection - Amber Theme */}
+        {/* Section 7: Reflection */}
         {project.reflection && (
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn text-amber-600 dark:text-amber-400">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                     Reflection
                   </h2>
-                  <div className="h-1 flex-1 bg-gradient-to-r from-amber-500 to-transparent rounded-full max-w-xs" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
               </div>
             </BlurFade>
@@ -661,18 +704,18 @@ export default function ForgePage() {
               {/* What Worked Well */}
               <BlurFade delay={0.2} inView>
                 <div>
-                  <h3 className="text-2xl font-semibold mb-6 text-green-600 dark:text-green-400">
+                  <h3 className="text-2xl font-semibold mb-6">
                     What Worked Well
                   </h3>
                   <div className="space-y-4">
                     {project.reflection.successful.map((item, index) => (
                       <Card
                         key={index}
-                        className="p-5 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50 border-green-200 dark:border-green-800"
+                        className="p-5 bg-card border-border"
                       >
                         <div className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
-                          <p className="text-sm text-green-900 dark:text-green-100">{item}</p>
+                          <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-foreground">{item}</p>
                         </div>
                       </Card>
                     ))}
@@ -683,18 +726,18 @@ export default function ForgePage() {
               {/* What to Do Differently */}
               <BlurFade delay={0.3} inView>
                 <div>
-                  <h3 className="text-2xl font-semibold mb-6 text-amber-600 dark:text-amber-400">
+                  <h3 className="text-2xl font-semibold mb-6">
                     What I'd Do Differently
                   </h3>
                   <div className="space-y-4">
                     {project.reflection.doingDifferently.map((item, index) => (
                       <Card
                         key={index}
-                        className="p-5 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/50 dark:to-amber-900/50 border-amber-200 dark:border-amber-800"
+                        className="p-5 bg-card border-border"
                       >
                         <div className="flex items-start gap-3">
-                          <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
-                          <p className="text-sm text-amber-900 dark:text-amber-100">{item}</p>
+                          <TrendingUp className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-foreground">{item}</p>
                         </div>
                       </Card>
                     ))}
@@ -748,9 +791,9 @@ export default function ForgePage() {
           <BlurFade delay={0.2} inView>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <Link href="/">
-                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
+                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer border-border">
                   <div className="flex items-center gap-4">
-                    <TrendingUp className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+                    <TrendingUp className="w-8 h-8 text-primary" />
                     <div>
                       <h3 className="font-semibold">Back to Portfolio</h3>
                       <p className="text-sm text-muted-foreground">
@@ -762,9 +805,9 @@ export default function ForgePage() {
               </Link>
 
               <Link href="mailto:kalyanvenkatesh.cha@gmail.com">
-                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
+                <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer border-border">
                   <div className="flex items-center gap-4">
-                    <Sparkles className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+                    <Sparkles className="w-8 h-8 text-primary" />
                     <div>
                       <h3 className="font-semibold">Let's Talk</h3>
                       <p className="text-sm text-muted-foreground">

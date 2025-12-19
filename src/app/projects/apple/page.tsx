@@ -127,7 +127,7 @@ export default function ApplePage() {
         cx={1}
         cy={1}
         cr={1}
-        className="fixed inset-0 text-neutral-300 dark:text-neutral-700 opacity-50 -z-10"
+        className="fixed inset-0 muted opacity-35 -z-10"
       />
 
       <div className="relative mx-auto px-6 md:px-12 lg:px-16 py-12 max-w-7xl">
@@ -155,18 +155,18 @@ export default function ApplePage() {
         <section className="mb-20">
           <BlurFade delay={0.1} inView>
             <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-acorn mb-2">
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                   Problem & Goals
                 </h2>
-                <div className="h-1 w-20 bg-red-600 dark:bg-red-400 rounded" />
+                <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
               </div>
 
               {/* Problem Statement */}
               {problem && (
                 <div className="space-y-6">
                   <h3 className="text-2xl font-semibold">The Problem</h3>
-                  <Card className="p-6 bg-red-50/50 dark:bg-red-900/10 border-red-200 dark:border-red-800">
+                  <Card className="p-6 bg-muted/50 border-border">
                     <p className="text-muted-foreground leading-relaxed text-lg">
                       {problem.statement}
                     </p>
@@ -189,9 +189,9 @@ export default function ApplePage() {
               {context?.npi && (
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="npi" className="border-none">
-                    <AccordionTrigger className="text-base font-semibold hover:no-underline py-3 px-4 bg-teal-50/50 dark:bg-teal-900/10 rounded-lg border border-primary">
+                    <AccordionTrigger className="text-base font-semibold hover:no-underline py-3 px-4 bg-primary/5 rounded-lg border border-primary">
                       <div className="flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                        <Sparkles className="w-5 h-5 text-primary" />
                         What is NPI?
                       </div>
                     </AccordionTrigger>
@@ -209,9 +209,9 @@ export default function ApplePage() {
                   <h3 className="text-2xl font-semibold">Our Goals</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {problem.goals.map((goal: string, index: number) => (
-                      <Card key={index} className="p-6 bg-teal-50/50 dark:bg-teal-900/10 border-primary">
+                      <Card key={index} className="p-6 bg-primary/5 border-primary">
                         <div className="flex items-start gap-3">
-                          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-teal-600 dark:bg-teal-400 text-white flex items-center justify-center font-semibold">
+                          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold">
                             {index + 1}
                           </div>
                           <p className="text-muted-foreground leading-relaxed flex-1">
@@ -228,11 +228,11 @@ export default function ApplePage() {
               {discovery && (
                 <div className="space-y-6">
                   <h3 className="text-2xl font-semibold flex items-center gap-2">
-                    <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
+                    <AlertCircle className="w-6 h-6 text-primary" />
                     How I Discovered the Problem
                   </h3>
 
-                  <Card className="p-6 bg-red-50/50 dark:bg-red-900/10 border-red-200 dark:border-red-800">
+                  <Card className="p-6 bg-muted/50 border-border">
                     <h4 className="text-lg font-semibold mb-3">Pattern Recognition</h4>
                     <p className="text-muted-foreground leading-relaxed">{discovery.patternRecognition}</p>
                   </Card>
@@ -245,7 +245,7 @@ export default function ApplePage() {
                   {/* The Hidden Cost */}
                   {discovery.manualWorkflow && (
                     <div className="space-y-4">
-                      <Card className="p-6 border-2 border-red-200 dark:border-red-800">
+                      <Card className="p-6 border-2 border-border">
                         <h5 className="text-xl font-semibold mb-3">{discovery.manualWorkflow.title}</h5>
                         <p className="text-muted-foreground mb-6">{discovery.manualWorkflow.description}</p>
 
@@ -253,9 +253,9 @@ export default function ApplePage() {
                           {discovery.manualWorkflow.steps.map((step: string, index: number) => (
                             <div
                               key={index}
-                              className="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg"
+                              className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg"
                             >
-                              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-600 dark:bg-red-400 text-white text-xs flex items-center justify-center font-semibold">
+                              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center font-semibold">
                                 {index + 1}
                               </span>
                               <p className="text-sm text-muted-foreground flex-1">{step}</p>
@@ -263,21 +263,21 @@ export default function ApplePage() {
                           ))}
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-red-200 dark:border-red-800">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-border">
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-red-600 dark:text-red-400">
+                            <p className="text-3xl font-bold text-primary">
                               {discovery.manualWorkflow.timePerReport}
                             </p>
                             <p className="text-sm text-muted-foreground mt-1">Time per report</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-red-600 dark:text-red-400">
+                            <p className="text-3xl font-bold text-primary">
                               {discovery.manualWorkflow.complexity}
                             </p>
                             <p className="text-sm text-muted-foreground mt-1">Clicks & keystrokes</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-red-600 dark:text-red-400">3 months</p>
+                            <p className="text-3xl font-bold text-primary">3 months</p>
                             <p className="text-sm text-muted-foreground mt-1">{discovery.manualWorkflow.training}</p>
                           </div>
                         </div>
@@ -286,10 +286,10 @@ export default function ApplePage() {
                   )}
 
                   {/* Key Insight */}
-                  <Card className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 border-2 border-primary">
+                  <Card className="p-6 bg-primary/5 border-2 border-primary">
                     <div className="flex items-center gap-3">
-                      <Lightbulb className="w-8 h-8 text-teal-600 dark:text-teal-400" />
-                      <p className="text-xl md:text-2xl font-semibold italic text-teal-900 dark:text-teal-100">
+                      <Lightbulb className="w-8 h-8 text-primary" />
+                      <p className="text-xl md:text-2xl font-semibold italic text-foreground">
                         "{discovery.insight}"
                       </p>
                     </div>
@@ -304,11 +304,11 @@ export default function ApplePage() {
         <section className="mb-20">
           <BlurFade delay={0.1} inView>
             <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-acorn mb-2">
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                   Users
                 </h2>
-                <div className="h-1 w-20 bg-blue-600 dark:bg-blue-400 rounded" />
+                <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
               </div>
 
               {/* Who We Served */}
@@ -336,11 +336,11 @@ export default function ApplePage() {
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="space-y-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-acorn mb-2">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                     Design Process & Solution Development
                   </h2>
-                  <div className="h-1 w-20 bg-purple-600 dark:bg-purple-400 rounded" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
 
                 <div className="space-y-8">
@@ -348,18 +348,18 @@ export default function ApplePage() {
                   {designProcess.prototype && (
                     <div className="space-y-4">
                       <h3 className="text-2xl font-semibold">Building the Prototype</h3>
-                      <Card className="p-6 border-2 border-blue-200 dark:border-blue-800">
+                      <Card className="p-6 border-2 border-border">
                         <div className="space-y-4">
                           <div>
-                            <h4 className="font-semibold mb-2 text-blue-900 dark:text-blue-100">Approach</h4>
+                            <h4 className="font-semibold mb-2 text-foreground">Approach</h4>
                             <p className="text-muted-foreground leading-relaxed">{designProcess.prototype.approach}</p>
                           </div>
                           <div>
-                            <h4 className="font-semibold mb-2 text-blue-900 dark:text-blue-100">Features</h4>
+                            <h4 className="font-semibold mb-2 text-foreground">Features</h4>
                             <p className="text-muted-foreground leading-relaxed">{designProcess.prototype.features}</p>
                           </div>
-                          <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                            <h4 className="font-semibold mb-2 text-blue-900 dark:text-blue-100">The Magic</h4>
+                          <div className="bg-muted/50 p-4 rounded-lg">
+                            <h4 className="font-semibold mb-2 text-foreground">The Magic</h4>
                             <p className="text-muted-foreground leading-relaxed">{designProcess.prototype.magic}</p>
                           </div>
                         </div>
@@ -375,8 +375,8 @@ export default function ApplePage() {
                         <p className="text-muted-foreground leading-relaxed mb-4">
                           {designProcess.validation.approach}
                         </p>
-                        <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                          <p className="text-lg font-semibold text-green-900 dark:text-green-100 italic">
+                        <div className="bg-muted/50 p-4 rounded-lg border border-border">
+                          <p className="text-lg font-semibold text-foreground italic">
                             {designProcess.validation.response}
                           </p>
                         </div>
@@ -388,10 +388,10 @@ export default function ApplePage() {
                   {designProcess.strategicPositioning && (
                     <div className="space-y-4">
                       <h3 className="text-2xl font-semibold">Strategic Positioning</h3>
-                      <Card className="p-6 border-2 border-purple-200 dark:border-purple-800">
+                      <Card className="p-6 border-2 border-border">
                         <div className="space-y-4">
                           <div>
-                            <h4 className="font-semibold mb-2 text-purple-900 dark:text-purple-100">
+                            <h4 className="font-semibold mb-2 text-foreground">
                               The Opportunity
                             </h4>
                             <p className="text-muted-foreground leading-relaxed">
@@ -399,13 +399,13 @@ export default function ApplePage() {
                             </p>
                           </div>
                           <div>
-                            <h4 className="font-semibold mb-2 text-purple-900 dark:text-purple-100">The Pitch</h4>
+                            <h4 className="font-semibold mb-2 text-foreground">The Pitch</h4>
                             <p className="text-muted-foreground leading-relaxed">
                               {designProcess.strategicPositioning.pitch}
                             </p>
                           </div>
-                          <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
-                            <h4 className="font-semibold mb-2 text-purple-900 dark:text-purple-100">The Result</h4>
+                          <div className="bg-muted/50 p-4 rounded-lg">
+                            <h4 className="font-semibold mb-2 text-foreground">The Result</h4>
                             <p className="text-muted-foreground leading-relaxed">
                               {designProcess.strategicPositioning.result}
                             </p>
@@ -425,8 +425,8 @@ export default function ApplePage() {
                           <p className="text-muted-foreground leading-relaxed">
                             {designProcess.cardSorting.structure}
                           </p>
-                          <div className="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg border border-primary">
-                            <h4 className="font-semibold mb-2 text-teal-900 dark:text-teal-100">Key Finding</h4>
+                          <div className="bg-primary/5 p-4 rounded-lg border border-primary">
+                            <h4 className="font-semibold mb-2 text-foreground">Key Finding</h4>
                             <p className="text-muted-foreground leading-relaxed">{designProcess.cardSorting.finding}</p>
                           </div>
                         </div>
@@ -436,7 +436,7 @@ export default function ApplePage() {
 
                   {/* SAP Fiori */}
                   {designProcess.sapFiori && (
-                    <Card className="p-6 bg-neutral-50 dark:bg-neutral-900 border-border">
+                    <Card className="p-6 bg-muted border-border">
                       <h3 className="text-xl font-semibold mb-3">Working with SAP Fiori Design System</h3>
                       <p className="text-muted-foreground leading-relaxed">{designProcess.sapFiori}</p>
                     </Card>
@@ -452,11 +452,11 @@ export default function ApplePage() {
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="space-y-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-acorn mb-2">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                     Solution & Results
                   </h2>
-                  <div className="h-1 w-20 bg-green-600 dark:bg-green-400 rounded" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
 
                 {/* Feature Details */}
@@ -466,8 +466,8 @@ export default function ApplePage() {
                     <p className="text-lg text-muted-foreground">{features.description}</p>
 
                     {features.mainFeature && (
-                      <Card className="p-6 border-2 border-green-200 dark:border-green-800">
-                        <h4 className="text-xl font-semibold mb-4 text-green-900 dark:text-green-100">
+                      <Card className="p-6 border-2 border-border">
+                        <h4 className="text-xl font-semibold mb-4 text-foreground">
                           {features.mainFeature.name}
                         </h4>
 
@@ -489,15 +489,15 @@ export default function ApplePage() {
                             <ul className="space-y-2">
                               {features.mainFeature.designDecisions.map((decision: string, index: number) => (
                                 <li key={index} className="flex items-start gap-2">
-                                  <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                                   <span className="text-muted-foreground">{decision}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
 
-                          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-                            <h5 className="font-semibold mb-2 text-green-900 dark:text-green-100">Output</h5>
+                          <div className="bg-muted/50 p-4 rounded-lg">
+                            <h5 className="font-semibold mb-2 text-foreground">Output</h5>
                             <p className="text-muted-foreground leading-relaxed">{features.mainFeature.output}</p>
                           </div>
                         </div>
@@ -512,20 +512,20 @@ export default function ApplePage() {
 
                   {/* Before Workflow */}
                   <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-red-600 dark:text-red-400">
+                    <h4 className="text-lg font-semibold text-primary">
                       Before: Manual Process (17-25 minutes)
                     </h4>
-                    <Card className="p-6 border-2 border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10">
+                    <Card className="p-6 border-2 border-border bg-muted/30">
                       <MermaidDiagram chart={beforeWorkflow} className="flex justify-center" />
                     </Card>
                   </div>
 
                   {/* After Workflow */}
                   <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-green-600 dark:text-green-400">
+                    <h4 className="text-lg font-semibold text-primary">
                       After: Automated Solution (&lt;1 minute)
                     </h4>
-                    <Card className="p-6 border-2 border-green-200 dark:border-green-800 bg-green-50/30 dark:bg-green-900/10">
+                    <Card className="p-6 border-2 border-primary/30 bg-primary/5">
                       <MermaidDiagram chart={afterWorkflow} className="flex justify-center" />
                     </Card>
                   </div>
@@ -533,7 +533,7 @@ export default function ApplePage() {
 
                 {/* Workflow Summary */}
                 {solution.automation?.summary && (
-                  <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800">
+                  <Card className="p-6 bg-muted/30 border-border">
                     <p className="text-muted-foreground leading-relaxed">{solution.automation.summary}</p>
                   </Card>
                 )}
@@ -542,7 +542,7 @@ export default function ApplePage() {
                 {solution.adoption && (
                   <div className="space-y-4">
                     <h3 className="text-2xl font-semibold">Adoption Success</h3>
-                    <Card className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800">
+                    <Card className="p-8 bg-muted/30 border-border">
                       <p className="text-lg text-muted-foreground mb-6 whitespace-pre-line">
                         {solution.adoption.description}
                       </p>
@@ -554,7 +554,7 @@ export default function ApplePage() {
                               <p
                                 className={`text-5xl font-bold ${
                                   index === 1
-                                    ? "bg-gradient-to-br from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent"
+                                    ? "text-primary"
                                     : "text-muted-foreground"
                                 }`}
                               >
@@ -577,9 +577,11 @@ export default function ApplePage() {
           <section className="mb-16">
             <BlurFade delay={0.1} inView>
               <div className="space-y-6">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="w-6 h-6 text-teal-600 dark:text-teal-400" />
-                  <h2 className="text-3xl font-bold tracking-tight font-acorn">Impact & Results</h2>
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
+                    Impact & Results
+                  </h2>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
 
                 {/* Quantified Impact */}
@@ -593,19 +595,19 @@ export default function ApplePage() {
                         <h4 className="text-xl font-semibold mb-4">Time Savings Per Report</h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-red-600 dark:text-red-400">
+                            <p className="text-3xl font-bold text-primary">
                               {impact.quantified.timeSavings.before}
                             </p>
                             <p className="text-sm text-muted-foreground">Before</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-green-600 dark:text-green-400">
+                            <p className="text-3xl font-bold text-primary">
                               {impact.quantified.timeSavings.after}
                             </p>
                             <p className="text-sm text-muted-foreground">After</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-teal-600 dark:text-teal-400">
+                            <p className="text-3xl font-bold text-primary">
                               {impact.quantified.timeSavings.savings}
                             </p>
                             <p className="text-sm text-muted-foreground">Saved</p>
@@ -616,23 +618,23 @@ export default function ApplePage() {
 
                     {/* Scale Impact */}
                     {impact.quantified.scale && (
-                      <Card className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 border-primary">
+                      <Card className="p-6 bg-primary/5 border-primary">
                         <h4 className="text-xl font-semibold mb-4">Impact at Scale</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-teal-600 dark:text-teal-400">~7,000</p>
+                            <p className="text-3xl font-bold text-primary">~7,000</p>
                             <p className="text-sm text-muted-foreground">Reports weekly</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-teal-600 dark:text-teal-400">2,216+</p>
+                            <p className="text-3xl font-bold text-primary">2,216+</p>
                             <p className="text-sm text-muted-foreground">Hours saved/week</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-teal-600 dark:text-teal-400">115k+</p>
+                            <p className="text-3xl font-bold text-primary">115k+</p>
                             <p className="text-sm text-muted-foreground">Hours saved/year</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-3xl font-bold text-teal-600 dark:text-teal-400">$5.18M</p>
+                            <p className="text-3xl font-bold text-primary">$5.18M</p>
                             <p className="text-sm text-muted-foreground">Productivity gains</p>
                           </div>
                         </div>
@@ -646,7 +648,7 @@ export default function ApplePage() {
                         <ul className="space-y-3">
                           {impact.quantified.additionalBenefits.map((benefit: string, index: number) => (
                             <li key={index} className="flex items-start gap-2">
-                              <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                              <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                               <span className="text-muted-foreground">{benefit}</span>
                             </li>
                           ))}
@@ -666,10 +668,10 @@ export default function ApplePage() {
                       <h4 className="text-xl font-semibold">What Users Told Me</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* P1 - Retail Store Manager */}
-                        <Card className="p-6 bg-blue-50/50 dark:bg-blue-900/10 border-2 border-blue-200 dark:border-blue-800">
+                        <Card className="p-6 bg-card border-2 border-border">
                           <div className="mb-3">
-                            <p className="text-sm font-semibold text-blue-900 dark:text-blue-100">P1</p>
-                            <p className="text-xs text-blue-700 dark:text-blue-300">Retail Store Manager</p>
+                            <p className="text-sm font-semibold text-foreground">P1</p>
+                            <p className="text-xs text-muted-foreground">Retail Store Manager</p>
                           </div>
                           <p className="text-base text-muted-foreground italic">
                             "This tool is exactly what we needed. I can't believe we used to do this manually. Now I can pull up reports in seconds instead of waiting around for someone to compile data."
@@ -677,10 +679,10 @@ export default function ApplePage() {
                         </Card>
 
                         {/* P2 - Senior Business Analyst */}
-                        <Card className="p-6 bg-purple-50/50 dark:bg-purple-900/10 border-2 border-purple-200 dark:border-purple-800">
+                        <Card className="p-6 bg-card border-2 border-border">
                           <div className="mb-3">
-                            <p className="text-sm font-semibold text-purple-900 dark:text-purple-100">P2</p>
-                            <p className="text-xs text-purple-700 dark:text-purple-300">Senior Business Analyst</p>
+                            <p className="text-sm font-semibold text-foreground">P2</p>
+                            <p className="text-xs text-muted-foreground">Senior Business Analyst</p>
                           </div>
                           <p className="text-base text-muted-foreground italic">
                             "The time I used to spend wrestling with SAP is now spent on actual analysis. It helps a lot with my workflow, I would love to see it talking directly to tableau someday"
@@ -688,10 +690,10 @@ export default function ApplePage() {
                         </Card>
 
                         {/* P3 - Supply Chain Lead */}
-                        <Card className="p-6 bg-green-50/50 dark:bg-green-900/10 border-2 border-green-200 dark:border-green-800">
+                        <Card className="p-6 bg-card border-2 border-border">
                           <div className="mb-3">
-                            <p className="text-sm font-semibold text-green-900 dark:text-green-100">P3</p>
-                            <p className="text-xs text-green-700 dark:text-green-300">Supply Chain Lead</p>
+                            <p className="text-sm font-semibold text-foreground">P3</p>
+                            <p className="text-xs text-muted-foreground">Supply Chain Lead</p>
                           </div>
                           <p className="text-base text-muted-foreground italic">
                             "Best part is, I do not have to search for store codes and prodcut codes anymore and yet find what I need"
@@ -699,10 +701,10 @@ export default function ApplePage() {
                         </Card>
 
                         {/* P4 - Global Retail Team */}
-                        <Card className="p-6 bg-teal-50/50 dark:bg-teal-900/10 border-2 border-primary">
+                        <Card className="p-6 bg-card border-2 border-border">
                           <div className="mb-3">
-                            <p className="text-sm font-semibold text-teal-900 dark:text-teal-100">P4</p>
-                            <p className="text-xs text-teal-700 dark:text-teal-300">Global Retail Team</p>
+                            <p className="text-sm font-semibold text-foreground">P4</p>
+                            <p className="text-xs text-muted-foreground">Global Retail Team</p>
                           </div>
                           <p className="text-base text-muted-foreground italic">
                             "I really like how we can have niche data from multiple regions at once"
@@ -716,8 +718,8 @@ export default function ApplePage() {
 
 
                       {impact.qualitative.executiveImpact && (
-                        <Card className="p-6 border-2 border-purple-200 dark:border-purple-800">
-                          <h4 className="font-semibold mb-2 text-purple-900 dark:text-purple-100">
+                        <Card className="p-6 border-2 border-border">
+                          <h4 className="font-semibold mb-2 text-foreground">
                             Executive Impact
                           </h4>
                           <p className="text-muted-foreground">{impact.qualitative.executiveImpact}</p>
@@ -736,24 +738,24 @@ export default function ApplePage() {
           <section className="mb-20">
             <BlurFade delay={0.1} inView>
               <div className="space-y-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-acorn mb-2">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                     Reflection
                   </h2>
-                  <div className="h-1 w-20 bg-amber-600 dark:bg-amber-400 rounded" />
+                  <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* What Worked Well */}
                   {reflection.successful && (
-                    <Card className="p-6 border-2 border-green-200 dark:border-green-800">
-                      <h3 className="text-xl font-semibold mb-4 text-green-900 dark:text-green-100">
+                    <Card className="p-6 border-2 border-border">
+                      <h3 className="text-xl font-semibold mb-4 text-foreground">
                         What Worked Well
                       </h3>
                       <ul className="space-y-3">
                         {reflection.successful.map((item: string, index: number) => (
                           <li key={index} className="flex items-start gap-2">
-                            <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                            <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                             <span className="text-sm text-muted-foreground">{item}</span>
                           </li>
                         ))}
@@ -763,14 +765,14 @@ export default function ApplePage() {
 
                   {/* What I'd Do Differently */}
                   {reflection.doingDifferently && (
-                    <Card className="p-6 border-2 border-amber-200 dark:border-amber-800">
-                      <h3 className="text-xl font-semibold mb-4 text-amber-900 dark:text-amber-100">
+                    <Card className="p-6 border-2 border-border">
+                      <h3 className="text-xl font-semibold mb-4 text-foreground">
                         What I'd Do Differently
                       </h3>
                       <ul className="space-y-3">
                         {reflection.doingDifferently.map((item: string, index: number) => (
                           <li key={index} className="flex items-start gap-2">
-                            <Lightbulb className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                            <Lightbulb className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                             <span className="text-sm text-muted-foreground">{item}</span>
                           </li>
                         ))}
@@ -787,17 +789,17 @@ export default function ApplePage() {
         <section className="mb-20">
           <BlurFade delay={0.1} inView>
             <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-acorn mb-2">
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight font-acorn">
                   Skills Demonstrated
                 </h2>
-                <div className="h-1 w-20 bg-purple-600 dark:bg-purple-400 rounded" />
+                <div className="h-1 flex-1 bg-gradient-to-r from-primary to-transparent rounded-full max-w-xs" />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Research & Discovery */}
                 <Card className="p-6 border-2">
-                  <h3 className="text-lg font-semibold mb-3 text-purple-900 dark:text-purple-100">
+                  <h3 className="text-lg font-semibold mb-3 text-foreground">
                     Research & Discovery
                   </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -810,7 +812,7 @@ export default function ApplePage() {
 
                 {/* Design & Architecture */}
                 <Card className="p-6 border-2">
-                  <h3 className="text-lg font-semibold mb-3 text-blue-900 dark:text-blue-100">
+                  <h3 className="text-lg font-semibold mb-3 text-foreground">
                     Design & Architecture
                   </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -823,7 +825,7 @@ export default function ApplePage() {
 
                 {/* Collaboration & Leadership */}
                 <Card className="p-6 border-2">
-                  <h3 className="text-lg font-semibold mb-3 text-teal-900 dark:text-teal-100">
+                  <h3 className="text-lg font-semibold mb-3 text-foreground">
                     Collaboration & Leadership
                   </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -836,7 +838,7 @@ export default function ApplePage() {
 
                 {/* Business & Strategy */}
                 <Card className="p-6 border-2">
-                  <h3 className="text-lg font-semibold mb-3 text-green-900 dark:text-green-100">
+                  <h3 className="text-lg font-semibold mb-3 text-foreground">
                     Business & Strategy
                   </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">

@@ -82,7 +82,7 @@ export default function RootLayout({
             <ScrollToTop />
             <TooltipProvider delayDuration={0}>
               <div className="relative">
-                <div className="mx-auto py-12 sm:py-24 px-6">
+                <div className="mx-auto py-12 sm:py-24">
                   {children}
                   <Navbar />
                 </div>

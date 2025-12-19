@@ -1,14 +1,13 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { WarningBox } from "@/components/warning-box";
 import BlurFade from "@/components/magicui/blur-fade";
 import { useRef } from "react";
 import { TrendingUp, Award } from "lucide-react";
-import Spline from "@splinetool/react-spline/next";
-import Image from "next/image";
+import { parseMetricValue } from "@/lib/utils";
+import { ProjectVisual } from "@/components/project-visual";
 
 interface Metric {
   value: string;
@@ -52,72 +51,6 @@ export function ProjectHeroEnhanced({
   const containerRef = useRef<HTMLDivElement>(null);
   const metricsRef = useRef<HTMLDivElement>(null);
 
-  // Parse metric values for NumberTicker
-  const parseMetricValue = (value: string) => {
-    // Extract numeric value from strings like "7x", "96%", "~73k", "$120k"
-    const numMatch = value.match(/[\d.]+/);
-    if (!numMatch) return 0;
-    const num = parseFloat(numMatch[0]);
-
-    // Handle thousands (k)
-    if (value.toLowerCase().includes('k')) {
-      return num;
-    }
-    return num;
-  };
-
-  const formatMetricValue = (value: string, tickerValue: number) => {
-    // Return the formatted value with suffix
-    if (value.includes('x')) return `${tickerValue}x`;
-    if (value.includes('%')) return `${tickerValue}%`;
-    if (value.toLowerCase().includes('h')) return `~${tickerValue}h`;
-    if (value.toLowerCase().includes('k')) return `~${tickerValue}k`;
-    if (value.includes('$')) return `$${tickerValue}k`;
-    return tickerValue.toString();
-  };
-
-  // Render visual component (shared between both variants)
-  const renderVisual = (showCaption = false) => (
-    <>
-      {videoUrl ? (
-        <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900/40 dark:to-neutral-800/40 border-2 border-neutral-200 dark:border-neutral-700 shadow-2xl hover:shadow-3xl transition-shadow">
-          <video
-            src={videoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ) : imageUrl ? (
-        <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900/40 dark:to-neutral-800/40 border-2 border-neutral-200 dark:border-neutral-700 shadow-2xl hover:shadow-3xl transition-shadow">
-          <Image
-            src={imageUrl}
-            alt={`${title} interface preview`}
-            fill
-            className="object-cover"
-            unoptimized={imageUrl.endsWith('.gif')}
-          />
-        </div>
-      ) : splineUrl ? (
-        <div className="spline-wrapper relative w-full aspect-square lg:aspect-auto lg:h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br from-teal-100 to-teal-200 dark:from-teal-900/40 dark:to-teal-800/40 border border-teal-200 dark:border-teal-700">
-          <div className="absolute inset-0 spline-container">
-            <Spline
-              scene={splineUrl}
-              style={{ width: '100%', height: '100%' }}
-            />
-          </div>
-        </div>
-      ) : null}
-      {showCaption && visualCaption && (
-        <p className="text-center text-sm text-muted-foreground mt-4">
-          {visualCaption}
-        </p>
-      )}
-    </>
-  );
-
   return (
     <div ref={containerRef} className="relative w-full mb-16">
       {/* NDA Warning */}
@@ -153,9 +86,9 @@ export function ProjectHeroEnhanced({
                     return (
                       <div
                         key={index}
-                        className="inline-flex items-center gap-3 px-5 py-3 bg-teal-100 dark:bg-teal-900/30 rounded-full border border-teal-200 dark:border-teal-700"
+                        className="inline-flex items-center gap-3 px-5 py-3 bg-muted rounded-full border border-border"
                       >
-                        <span className="text-3xl font-bold text-teal-900 dark:text-teal-100">
+                        <span className="text-3xl font-bold text-foreground">
                           {metric.value.includes('~') || metric.value.includes('$') ? (
                             <>
                               {metric.value.includes('~') && '~'}
@@ -173,16 +106,16 @@ export function ProjectHeroEnhanced({
                             </>
                           )}
                         </span>
-                        <span className="text-sm text-primary font-medium">
+                        <span className="text-sm text-muted-foreground font-medium">
                           {metric.label}
                         </span>
                       </div>
                     );
                   })}
                   {award && (
-                    <div className="inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/30 dark:to-yellow-900/30 rounded-full border-2 border-amber-300 dark:border-amber-700">
-                      <Award className="w-6 h-6 text-amber-600 dark:text-amber-400 flex-shrink-0" />
-                      <span className="text-sm text-amber-900 dark:text-amber-100 font-semibold">
+                    <div className="inline-flex items-center gap-3 px-5 py-3 bg-muted rounded-full border border-border">
+                      <Award className="w-6 h-6 text-primary flex-shrink-0" />
+                      <span className="text-sm text-foreground font-semibold">
                         {award}
                       </span>
                     </div>
@@ -195,7 +128,14 @@ export function ProjectHeroEnhanced({
           {/* Large Visual */}
           <BlurFade delay={0.2} inView>
             <div className="w-full max-w-6xl mx-auto">
-              {renderVisual(true)}
+              <ProjectVisual
+                videoUrl={videoUrl}
+                imageUrl={imageUrl}
+                splineUrl={splineUrl}
+                title={title}
+                showCaption={true}
+                visualCaption={visualCaption}
+              />
             </div>
           </BlurFade>
 
@@ -225,7 +165,7 @@ export function ProjectHeroEnhanced({
                   <Badge
                     key={index}
                     variant="secondary"
-                    className="px-3 py-1.5 text-sm bg-neutral-100 dark:bg-neutral-900/30 text-foreground border-neutral-200 dark:border-neutral-700"
+                    className="px-3 py-1.5 text-sm"
                   >
                     {tag}
                   </Badge>
@@ -240,7 +180,14 @@ export function ProjectHeroEnhanced({
           {/* Left Column: Visual */}
           <BlurFade delay={0.1} inView>
             <div className="space-y-6">
-              {renderVisual(false)}
+              <ProjectVisual
+                videoUrl={videoUrl}
+                imageUrl={imageUrl}
+                splineUrl={splineUrl}
+                title={title}
+                showCaption={false}
+                visualCaption={visualCaption}
+              />
 
               {/* Title and Subtitle */}
               <div>
@@ -263,10 +210,10 @@ export function ProjectHeroEnhanced({
               <BlurFade delay={0.2} inView>
                 <div
                   ref={metricsRef}
-                  className="relative p-6 rounded-xl bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-shadow"
+                  className="relative p-6 rounded-xl bg-card border border-border shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <TrendingUp className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                    <TrendingUp className="w-5 h-5 text-primary" />
                     <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">
                       Impact Metrics
                     </h3>
@@ -276,7 +223,7 @@ export function ProjectHeroEnhanced({
                       const numericValue = parseMetricValue(metric.value);
                       return (
                         <div key={index} className="space-y-1">
-                          <div className="text-3xl font-bold bg-gradient-to-br from-neutral-900 to-neutral-600 dark:from-neutral-100 dark:to-neutral-400 bg-clip-text text-transparent">
+                          <div className="text-3xl font-bold text-foreground">
                             {metric.value.includes('~') || metric.value.includes('$') ? (
                               <span>
                                 {metric.value.includes('~') && '~'}
@@ -313,7 +260,7 @@ export function ProjectHeroEnhanced({
                     <Badge
                       key={index}
                       variant="secondary"
-                      className="px-3 py-1.5 text-sm bg-teal-100 dark:bg-teal-900/30 text-teal-900 dark:text-teal-100 border-teal-200 dark:border-teal-700 hover:bg-teal-200 dark:hover:bg-teal-800/40 transition-colors"
+                      className="px-3 py-1.5 text-sm"
                     >
                       {tag}
                     </Badge>

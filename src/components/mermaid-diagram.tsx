@@ -11,9 +11,24 @@ interface MermaidDiagramProps {
 export function MermaidDiagram({ chart, className = "" }: MermaidDiagramProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isClient, setIsClient] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    // Check for dark mode
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    checkDarkMode();
+
+    // Listen for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -21,17 +36,17 @@ export function MermaidDiagram({ chart, className = "" }: MermaidDiagramProps) {
 
     mermaid.initialize({
       startOnLoad: true,
-      theme: "default",
+      theme: isDark ? "dark" : "default",
       securityLevel: "loose",
       fontFamily: "system-ui, -apple-system, sans-serif",
     });
 
     if (ref.current) {
-      // Clear previous content
+      // Clear previous content and re-render
       ref.current.innerHTML = chart;
       mermaid.contentLoaded();
     }
-  }, [chart, isClient]);
+  }, [chart, isClient, isDark]);
 
   if (!isClient) {
     return <div className={className} style={{ minHeight: "200px" }} />;

@@ -11,7 +11,6 @@ export interface Persona {
   description: string;
   challenges?: string;
   needs?: string;
-  results?: string;
 }
 
 interface PersonaCardProps {
@@ -71,24 +70,12 @@ export function PersonaCard({ persona, delay = 0 }: PersonaCardProps) {
 
         {/* Needs */}
         {persona.needs && (
-          <div className="mb-3">
+          <div>
             <h4 className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase mb-1">
               Needs
             </h4>
             <p className="text-sm text-foreground">
               {persona.needs}
-            </p>
-          </div>
-        )}
-
-        {/* Results */}
-        {persona.results && (
-          <div>
-            <h4 className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase mb-1">
-              Results
-            </h4>
-            <p className="text-sm text-green-700 dark:text-green-400 font-medium">
-              {persona.results}
             </p>
           </div>
         )}
